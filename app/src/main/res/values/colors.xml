@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navy_blue">#00AF43</color>
+    <color name="green">#4CAF50</color>
+    <color name="orange">#FFB81D</color>
+    <color name="navy_blue_variant">#CC00AF43</color>
+    <color name="grey">#7C868D</color>
+    <color name="font_grey">#28322F</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

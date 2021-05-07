@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="12dp"
+    app:elevation="12dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/buyer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buyer_name"
+            android:textSize="16sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/offer_amount_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offer_amount_lbl"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buyer_name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/offer_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offer_amount"
+            android:textSize="12sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/offer_amount_lbl"
+            app:layout_constraintTop_toBottomOf="@id/buyer_name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/offer_date_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offer_date_lbl"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/offer_amount_lbl"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/offer_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offer_date"
+            android:textSize="12sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/offer_date_lbl"
+            app:layout_constraintTop_toBottomOf="@id/offer_amount"/>
+        
+        <LinearLayout
+            android:id="@+id/button_row"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintTop_toBottomOf="@id/offer_date_lbl">
+            
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:text="@string/txt_accept"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/green"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:text="@string/txt_negotiate"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/orange"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:text="@string/txt_decline"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/grey"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

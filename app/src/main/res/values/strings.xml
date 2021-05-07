@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Agriventure</string>
+    <string name="app_subtitle">Log in to your account below</string>
+    <string name="title_market">Market</string>
+    <string name="title_credit">Credit</string>
+    <string name="title_learn">Learn</string>
+    <string name="title_login"> </string>
+    <string name="user_market_title">Your Market Products</string>
+    <string name="other_market_title">The Market</string>
+    <string name="item_name">Maize - White Premium Adastra</string>
+    <string name="item_weight">2 Tonnes</string>
+    <string name="item_farm_location">Farmed in Aboket, Soroti</string>
+    <string name="item_price">600 UGX / KG</string>
+    <string name="item_weight_lbl">Amount : </string>
+    <string name="item_price_lbl">Price : </string>
+    <string name="offers_title">Offers for this item</string>
+    <string name="buyer_name">Nana Industries</string>
+    <string name="offer_amount_lbl">Amount Offered</string>
+    <string name="offer_amount">500 UGX / KG</string>
+    <string name="offer_date_lbl">Offer Date</string>
+    <string name="offer_date">13th April 2021</string>
+    <string name="txt_accept">Accept</string>
+    <string name="txt_negotiate">Negotiate</string>
+    <string name="txt_decline">Decline</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="12dp"
+    app:elevation="12dp"
+    app:cardCornerRadius="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/maize"
+            android:scaleType="fitCenter"
+            android:fadingEdge="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_name"
+            android:textSize="16sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_image"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_weight_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_weight_lbl"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_image"
+            app:layout_constraintTop_toBottomOf="@id/item_name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_weight"
+            android:textSize="12sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_weight_lbl"
+            app:layout_constraintTop_toBottomOf="@id/item_name"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_price_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_price_lbl"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_image"
+            app:layout_constraintTop_toBottomOf="@id/item_weight_lbl"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_price"
+            android:textSize="12sp"
+            android:textColor="@color/font_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_price_lbl"
+            app:layout_constraintTop_toBottomOf="@id/item_weight"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
