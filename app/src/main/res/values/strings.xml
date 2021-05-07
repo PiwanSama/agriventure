@@ -15,9 +15,9 @@
     <string name="item_price_lbl">Price : </string>
     <string name="offers_title">Offers for this item</string>
     <string name="buyer_name">Nana Industries</string>
-    <string name="offer_amount_lbl">Amount Offered</string>
+    <string name="offer_amount_lbl">Amount Offered : </string>
     <string name="offer_amount">500 UGX / KG</string>
-    <string name="offer_date_lbl">Offer Date</string>
+    <string name="offer_date_lbl">Offer Date : </string>
     <string name="offer_date">13th April 2021</string>
     <string name="txt_accept">Accept</string>
     <string name="txt_negotiate">Negotiate</string>
