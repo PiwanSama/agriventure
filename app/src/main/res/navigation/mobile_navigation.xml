@@ -27,6 +27,10 @@
         android:id="@+id/navigation_login"
         android:name="com.example.agriventure.ui.login.LoginFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_market"
+            app:destination="@id/navigation_market" />
+    </fragment>
 
 </navigation>

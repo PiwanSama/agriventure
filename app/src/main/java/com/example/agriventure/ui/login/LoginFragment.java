@@ -6,33 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 import com.example.agriventure.R;
+import com.example.agriventure.data.models.Offer;
+import com.example.agriventure.ui.BaseFragment;
 
-public class LoginFragment extends Fragment {
+import java.util.Objects;
 
-    private LoginViewModel loginViewModel;
+public class LoginFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        loginViewModel =
-                new ViewModelProvider(this).get(LoginViewModel.class);
-        /*final TextView textView = root.findViewById(R.id.text_login);
-        loginViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -45,10 +41,15 @@ public class LoginFragment extends Fragment {
         return root;
     }
 
-    private PinLockListener pinLockListener = new PinLockListener() {
+    private final PinLockListener pinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
             Log.d("Login", "Complete");
+            if (pin.equals("1234")){
+                Navigation.findNavController(getView()).navigate(R.id.action_navigation_login_to_navigation_market);
+            }else{
+                Toast.makeText(activity, "Incorrect PIN entered", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
