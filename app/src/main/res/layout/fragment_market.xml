@@ -16,6 +16,7 @@
         android:textColor="@color/green"
         android:textStyle="bold"
         android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/user_market_title"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -35,14 +37,44 @@
         android:textColor="@color/green"
         android:textStyle="bold"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/user_market_products"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_produce"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_produce"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:textAllCaps="false"
+        android:text="@string/add_produce"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_add_produce"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_market_products"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="24dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/other_market_title"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/market_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/market_empty"
+        android:textSize="14sp"
+        android:textColor="@color/grey"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

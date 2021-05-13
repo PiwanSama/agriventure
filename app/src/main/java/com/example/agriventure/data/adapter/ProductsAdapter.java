@@ -32,7 +32,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         MaterialTextView product_quantity = holder.product_quantity;
         MaterialTextView product_price = holder.product_price;
 
-        product_image.setImageResource(produce.getProduct_image());
+        //product_image.setImageResource(produce.getProduct_image());
         product_name.setText(produce.getProduct_name());
         product_quantity.setText(produce.getProduct_quantity());
         product_price.setText(produce.getProduct_price());

@@ -1,8 +1,7 @@
 package com.example.agriventure.data.models;
 
 public class Produce {
-    public int product_id;
-    public int product_image;
+    public String product_image;
     public String product_name;
     public String product_category;
     public String product_state;//available now, available soon
@@ -12,12 +11,16 @@ public class Produce {
     public boolean is_sold;
     public int user_id;
 
-    public int getProduct_id() {
-        return product_id;
-    }
-
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id) {
+        this.product_image = product_image;
+        this.product_name = product_name;
+        this.product_category = product_category;
+        this.product_state = product_state;
+        this.product_maturity_date = product_maturity_date;
+        this.product_price = product_price;
+        this.product_quantity = product_quantity;
+        this.is_sold = is_sold;
+        this.user_id = user_id;
     }
 
     public String getProduct_name() {
@@ -84,11 +87,11 @@ public class Produce {
         this.user_id = user_id;
     }
 
-    public int getProduct_image() {
+    public String getProduct_image() {
         return product_image;
     }
 
-    public void setProduct_image(int product_image) {
+    public void setProduct_image(String product_image) {
         this.product_image = product_image;
     }
 }
