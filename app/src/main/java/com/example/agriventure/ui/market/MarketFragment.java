@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class MarketFragment extends BaseFragment {
     private RecyclerView myProductsRv, allProductsRv;
     private MaterialTextView marketEmptyText, myProduceTitle, allProduceTitle;
     private MaterialButton buttonAddProduce;
+    private ProgressBar mProgressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class MarketFragment extends BaseFragment {
         allProduceTitle = view.findViewById(R.id.other_market_title);
 
         buttonAddProduce = view.findViewById(R.id.btn_add_produce);
+
+        mProgressBar = view.findViewById(R.id.data_loading);
 
         myProductList = new ArrayList<>();
         return view;
@@ -89,6 +93,7 @@ public class MarketFragment extends BaseFragment {
         }else{
             buttonAddProduce.setVisibility(View.VISIBLE);
             marketEmptyText.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 
@@ -102,5 +107,6 @@ public class MarketFragment extends BaseFragment {
         });
         myProductsRv.setAdapter(productsAdapter);
         myProductsRv.setLayoutManager(linearLayoutManager);
+        mProgressBar.setVisibility(View.GONE);
     }
 }
