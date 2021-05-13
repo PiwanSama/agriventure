@@ -1,6 +1,7 @@
 package com.example.agriventure.data.models;
 
 public class Produce {
+    public String product_id;
     public String product_image;
     public String product_name;
     public String product_category;
@@ -10,6 +11,8 @@ public class Produce {
     public String product_quantity;
     public boolean is_sold;
     public int user_id;
+
+    public Produce(){}
 
     public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id) {
         this.product_image = product_image;
@@ -21,6 +24,14 @@ public class Produce {
         this.product_quantity = product_quantity;
         this.is_sold = is_sold;
         this.user_id = user_id;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public String getProduct_name() {

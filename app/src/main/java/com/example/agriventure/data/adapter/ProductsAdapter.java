@@ -1,5 +1,7 @@
 package com.example.agriventure.data.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,12 +18,20 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
     private List<Produce> produceList;
+    private Context context;
+    private ProduceClickListener produceClickListener;
+
+    public ProductsAdapter(@NonNull Context context, List<Produce> products, ProduceClickListener listener){
+        this.produceList = products;
+        this.context = context;
+        this.produceClickListener = listener;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.rv_market_item, parent);
-        return new ViewHolder(view);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_market_item,parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
@@ -58,5 +68,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             product_quantity = itemView.findViewById(R.id.item_weight);
             product_price = itemView.findViewById(R.id.item_price);
         }
+    }
+
+    public interface ProduceClickListener {
+        void getProductId(Produce produce);
     }
 }

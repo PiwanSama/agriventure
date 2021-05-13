@@ -44,7 +44,6 @@ public class LoginFragment extends BaseFragment {
     private final PinLockListener pinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
-            Log.d("Login", "Complete");
             if (pin.equals("1234")){
                 Navigation.findNavController(getView()).navigate(R.id.action_navigation_login_to_navigation_market);
             }else{
@@ -59,7 +58,7 @@ public class LoginFragment extends BaseFragment {
 
         @Override
         public void onPinChange(int pinLength, String intermediatePin) {
-            Log.d("Login", "Pin changed, new length " + pinLength + " with intermediate pin " + intermediatePin);
+
         }
     };
 }

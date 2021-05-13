@@ -19,6 +19,8 @@ import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.ui.BaseFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,7 @@ public class AddProduceFragment extends BaseFragment {
 
     private MaterialButton btn_add_produce, btn_upload_image;
     private AutoCompleteTextView category_view;
+    private DatabaseReference mDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,24 +37,35 @@ public class AddProduceFragment extends BaseFragment {
         btn_add_produce = root.findViewById(R.id.btn_add_produce);
         btn_upload_image = root.findViewById(R.id.btn_upload_image);
         category_view = root.findViewById(R.id.produce_category);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         btn_add_produce.setOnClickListener(v -> {
-            Produce produce = new Produce("maize","Maize Ad Astra","Cereals","Available","12/06/2021", "600 UGX / KG", "2 Tonnes",false,1);
-            Toast.makeText(activity, "Todo firebase post", Toast.LENGTH_SHORT).show();
+            writeNewProduct();
         });
 
         btn_upload_image.setOnClickListener(v -> Toast.makeText(activity, "Todo upload image", Toast.LENGTH_SHORT).show());
 
         String[]  category_array= getResources().getStringArray(R.array.product_categories);
-        ArrayList<String> categories= new ArrayList<String>(Arrays.asList(category_array));
+        ArrayList<String> categories= new ArrayList<>(Arrays.asList(category_array));
 
         ArrayAdapter category_adapter = new ArrayAdapter(activity, R.layout.list_item, categories);
         category_view.setAdapter(category_adapter);
 
+    }
+
+    private void writeNewProduct(){
+        Produce produce = new Produce("maize","Maize Ad Astra","Cereals","Available","12/06/2021", "600 UGX / KG", "2 Tonnes",false,1);
+        String newKey = mDatabase.child("produce").push().getKey();
+        assert newKey != null;
+        produce.setProduct_id(newKey);
+        mDatabase.child("produce").child(newKey).setValue(produce);
     }
 }

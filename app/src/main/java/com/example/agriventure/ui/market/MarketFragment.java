@@ -1,21 +1,20 @@
 package com.example.agriventure.ui.market;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agriventure.R;
+import com.example.agriventure.data.adapter.ProductsAdapter;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.ui.BaseFragment;
 import com.google.android.material.button.MaterialButton;
@@ -24,17 +23,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MarketFragment extends BaseFragment {
 
-    private DatabaseReference mDatabase;
-    private List<Produce> myProducts;
+    private List<Produce> myProductList;
     private RecyclerView myProductsRv, allProductsRv;
     private MaterialTextView marketEmptyText, myProduceTitle, allProduceTitle;
     private MaterialButton buttonAddProduce;
@@ -51,35 +47,32 @@ public class MarketFragment extends BaseFragment {
 
         buttonAddProduce = view.findViewById(R.id.btn_add_produce);
 
-        myProducts = new ArrayList<>();
+        myProductList = new ArrayList<>();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("produce");
 
-        ValueEventListener queryValueListener = new ValueEventListener() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> iterable = snapshot.getChildren();
-
-                for (DataSnapshot next : iterable) {
-                    myProducts.add((Produce) next.getValue());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Produce produce = dataSnapshot.getValue(Produce.class);
+                    myProductList.add(produce);
+                    Log.i("METHOD", String.valueOf(myProductList.size()));
                 }
+                updateView();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
-        };
 
-        Query query = mDatabase.orderByKey();
-        query.addListenerForSingleValueEvent(queryValueListener);
-        
-        updateView();
+            }
+        });
+
 
         buttonAddProduce.setOnClickListener(v -> {
             Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_add_produce);
@@ -87,13 +80,27 @@ public class MarketFragment extends BaseFragment {
     }
 
     private void updateView() {
-        if (myProducts.size()>0){
+        Log.i("MARKET", String.valueOf(myProductList.size()));
+        if (myProductList.size()>0){
             myProduceTitle.setVisibility(View.VISIBLE);
             myProductsRv.setVisibility(View.VISIBLE);
             allProductsRv.setVisibility(View.VISIBLE);
+            setUpMyProducts(myProductList);
         }else{
             buttonAddProduce.setVisibility(View.VISIBLE);
             marketEmptyText.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setUpMyProducts(List<Produce> produceList) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+        ProductsAdapter productsAdapter = new ProductsAdapter(activity, produceList, new ProductsAdapter.ProduceClickListener() {
+            @Override
+            public void getProductId(Produce produce) {
+                Toast.makeText(activity, produce.getProduct_name(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        myProductsRv.setAdapter(productsAdapter);
+        myProductsRv.setLayoutManager(linearLayoutManager);
     }
 }
