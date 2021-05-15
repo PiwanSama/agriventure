@@ -9,12 +9,14 @@ public class Produce {
     public String product_maturity_date;
     public String product_price;
     public String product_quantity;
+    public String seller_name;
     public boolean is_sold;
     public int user_id;
 
-    public Produce(){}
+    public Produce() {
+    }
 
-    public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id) {
+    public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id, String seller_name) {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_category = product_category;
@@ -24,6 +26,15 @@ public class Produce {
         this.product_quantity = product_quantity;
         this.is_sold = is_sold;
         this.user_id = user_id;
+        this.seller_name = seller_name;
+    }
+
+    public String getSeller_name() {
+        return seller_name;
+    }
+
+    public void setSeller_name(String seller_name) {
+        this.seller_name = seller_name;
     }
 
     public String getProduct_id() {

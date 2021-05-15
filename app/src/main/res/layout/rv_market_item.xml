@@ -17,9 +17,9 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_image"
             android:layout_width="100dp"
-            android:layout_height="110dp"
+            android:layout_height="match_parent"
             android:src="@drawable/maize"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -27,10 +27,10 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/font_grey"
             android:textStyle="bold"
-            android:layout_marginTop="24dp"
+            
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toEndOf="@id/item_image"/>
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/item_weight_lbl"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/green"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -53,7 +53,7 @@
             android:id="@+id/item_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/font_grey"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/item_price_lbl"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/green"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -80,7 +80,7 @@
             android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/font_grey"
             android:textStyle="bold"
             android:layout_marginTop="12dp"
@@ -88,6 +88,19 @@
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toEndOf="@id/item_price_lbl"
             app:layout_constraintTop_toBottomOf="@id/item_weight"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/item_image"
+            app:layout_constraintTop_toBottomOf="@id/item_price"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

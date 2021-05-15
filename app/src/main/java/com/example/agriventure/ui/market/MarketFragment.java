@@ -36,6 +36,7 @@ public class MarketFragment extends BaseFragment {
     private MaterialTextView marketEmptyText, myProduceTitle, allProduceTitle;
     private MaterialButton buttonAddProduce;
     private ProgressBar mProgressBar;
+    private ProductsAdapter productsAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,10 +64,10 @@ public class MarketFragment extends BaseFragment {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myProductList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Produce produce = dataSnapshot.getValue(Produce.class);
                     myProductList.add(produce);
-                    Log.i("METHOD", String.valueOf(myProductList.size()));
                 }
                 updateView();
             }
@@ -77,18 +78,15 @@ public class MarketFragment extends BaseFragment {
             }
         });
 
-
         buttonAddProduce.setOnClickListener(v -> {
             Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_add_produce);
         });
     }
 
     private void updateView() {
-        Log.i("MARKET", String.valueOf(myProductList.size()));
         if (myProductList.size()>0){
             myProduceTitle.setVisibility(View.VISIBLE);
-            myProductsRv.setVisibility(View.VISIBLE);
-            allProductsRv.setVisibility(View.VISIBLE);
+            buttonAddProduce.setVisibility(View.VISIBLE);
             setUpMyProducts(myProductList);
         }else{
             buttonAddProduce.setVisibility(View.VISIBLE);
@@ -97,16 +95,13 @@ public class MarketFragment extends BaseFragment {
         }
     }
 
-    private void setUpMyProducts(List<Produce> produceList) {
+    private void setUpMyProducts(List<Produce> products) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        ProductsAdapter productsAdapter = new ProductsAdapter(activity, produceList, new ProductsAdapter.ProduceClickListener() {
-            @Override
-            public void getProductId(Produce produce) {
-                Toast.makeText(activity, produce.getProduct_name(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        productsAdapter = new ProductsAdapter(activity, products, produce -> Toast.makeText(activity, produce.getProduct_name(), Toast.LENGTH_SHORT).show());
         myProductsRv.setAdapter(productsAdapter);
         myProductsRv.setLayoutManager(linearLayoutManager);
+        myProductsRv.setVisibility(View.VISIBLE);
+        allProductsRv.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
     }
 }

@@ -41,11 +41,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         MaterialTextView product_name = holder.product_name;
         MaterialTextView product_quantity = holder.product_quantity;
         MaterialTextView product_price = holder.product_price;
+        MaterialTextView seller_name = holder.seller_name;
 
         //product_image.setImageResource(produce.getProduct_image());
         product_name.setText(produce.getProduct_name());
         product_quantity.setText(produce.getProduct_quantity());
         product_price.setText(produce.getProduct_price());
+        seller_name.setText(produce.getSeller_name());
     }
 
     @Override
@@ -59,6 +61,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public MaterialTextView product_name;
         public MaterialTextView product_quantity;
         public MaterialTextView product_price;
+        public MaterialTextView seller_name;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +70,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             product_name = itemView.findViewById(R.id.item_name);
             product_quantity = itemView.findViewById(R.id.item_weight);
             product_price = itemView.findViewById(R.id.item_price);
+            seller_name = itemView.findViewById(R.id.seller_name);
         }
     }
 

@@ -44,7 +44,7 @@ public class LoginFragment extends BaseFragment {
     private final PinLockListener pinLockListener = new PinLockListener() {
         @Override
         public void onComplete(String pin) {
-            if (pin.equals("1234")){
+            if (pin.equals("5555")){
                 Navigation.findNavController(getView()).navigate(R.id.action_navigation_login_to_navigation_market);
             }else{
                 Toast.makeText(activity, "Incorrect PIN entered", Toast.LENGTH_SHORT).show();

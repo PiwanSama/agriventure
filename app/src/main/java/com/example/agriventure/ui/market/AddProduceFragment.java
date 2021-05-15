@@ -62,7 +62,7 @@ public class AddProduceFragment extends BaseFragment {
     }
 
     private void writeNewProduct(){
-        Produce produce = new Produce("maize","Maize Ad Astra","Cereals","Available","12/06/2021", "600 UGX / KG", "2 Tonnes",false,1);
+        Produce produce = new Produce("maize","Maize Ad Astra","Cereals","Available","12/06/2021", "600 UGX / KG", "2 Tonnes",false,1, "Hosanna Cereal Industries");
         String newKey = mDatabase.child("produce").push().getKey();
         assert newKey != null;
         produce.setProduct_id(newKey);
