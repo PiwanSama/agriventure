@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_market_to_navigation_add_produce"
             app:destination="@id/navigation_add_produce" />
+        <action
+            android:id="@+id/action_navigation_market_to_navigation_produce_detail"
+            app:destination="@id/navigation_produce_detail" />
     </fragment>
 
     <fragment
@@ -42,6 +45,12 @@
         android:name="com.example.agriventure.ui.market.AddProduceFragment"
         android:label="@string/title_add_produce"
         tools:layout="@layout/fragment_add_produce" />
+
+    <fragment
+        android:id="@+id/navigation_produce_detail"
+        android:name="com.example.agriventure.ui.market.ProductDetailFragment"
+        android:label="@string/title_produce_details"
+        tools:layout="@layout/fragment_market_item_detail" />
 
 
 </navigation>

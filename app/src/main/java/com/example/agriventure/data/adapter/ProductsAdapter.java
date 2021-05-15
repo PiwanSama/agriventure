@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
 import com.google.android.material.textview.MaterialTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,17 +39,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder holder, int position) {
         Produce produce = produceList.get(position);
-        AppCompatImageView product_image = holder.product_image;
-        MaterialTextView product_name = holder.product_name;
-        MaterialTextView product_quantity = holder.product_quantity;
-        MaterialTextView product_price = holder.product_price;
-        MaterialTextView seller_name = holder.seller_name;
-
-        //product_image.setImageResource(produce.getProduct_image());
-        product_name.setText(produce.getProduct_name());
-        product_quantity.setText(produce.getProduct_quantity());
-        product_price.setText(produce.getProduct_price());
-        seller_name.setText(produce.getSeller_name());
+        holder.bind(produceList.get(position), produceClickListener);
     }
 
     @Override
@@ -65,12 +57,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             product_image = itemView.findViewById(R.id.item_image);
             product_name = itemView.findViewById(R.id.item_name);
             product_quantity = itemView.findViewById(R.id.item_weight);
             product_price = itemView.findViewById(R.id.item_price);
             seller_name = itemView.findViewById(R.id.seller_name);
+        }
+
+        public void bind(Produce produce, ProduceClickListener listener) {
+            product_name.setText(produce.getProduct_name());
+            product_quantity.setText(produce.getProduct_quantity());
+            product_price.setText(produce.getProduct_price());
+            seller_name.setText(produce.getSeller_name());
+            Picasso.with(itemView.getContext()).load(produce.getProduct_image()).into(product_image);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.getProductId(produce);
+                }
+            });
         }
     }
 

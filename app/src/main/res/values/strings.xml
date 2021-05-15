@@ -30,6 +30,7 @@
     <string name="upload_image">Upload Image</string>
     <string name="title_add_produce">Add Produce</string>
     <string name="txt_produce_catgeory">Produce Category</string>
+    <string name="title_produce_details">Viewing Produce Details</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

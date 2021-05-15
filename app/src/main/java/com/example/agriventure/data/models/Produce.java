@@ -1,6 +1,9 @@
 package com.example.agriventure.data.models;
 
-public class Produce {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Produce implements Parcelable {
     public String product_id;
     public String product_image;
     public String product_name;
@@ -115,5 +118,15 @@ public class Produce {
 
     public void setProduct_image(String product_image) {
         this.product_image = product_image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

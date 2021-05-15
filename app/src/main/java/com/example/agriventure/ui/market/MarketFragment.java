@@ -97,7 +97,11 @@ public class MarketFragment extends BaseFragment {
 
     private void setUpMyProducts(List<Produce> products) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        productsAdapter = new ProductsAdapter(activity, products, produce -> Toast.makeText(activity, produce.getProduct_name(), Toast.LENGTH_SHORT).show());
+        productsAdapter = new ProductsAdapter(activity, products, produce -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("produce", produce);
+            Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_produce_detail, bundle);
+        });
         myProductsRv.setAdapter(productsAdapter);
         myProductsRv.setLayoutManager(linearLayoutManager);
         myProductsRv.setVisibility(View.VISIBLE);
