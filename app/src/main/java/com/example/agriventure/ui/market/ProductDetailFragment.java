@@ -1,7 +1,6 @@
 package com.example.agriventure.ui.market;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,6 @@ import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.ui.BaseFragment;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.json.JSONObject;
 
 public class ProductDetailFragment extends BaseFragment {
 

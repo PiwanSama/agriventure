@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_login">
+    app:startDestination="@+id/navigation_market">
 
     <fragment
         android:id="@+id/navigation_market"
@@ -51,6 +51,12 @@
         android:name="com.example.agriventure.ui.market.ProductDetailFragment"
         android:label="@string/title_produce_details"
         tools:layout="@layout/fragment_market_item_detail" />
+
+    <fragment
+        android:id="@+id/navigation_add_offer"
+        android:name="com.example.agriventure.ui.market.AddOfferFragment"
+        android:label="@string/title_add_offer"
+        tools:layout="@layout/fragment_add_offer" />
 
 
 </navigation>

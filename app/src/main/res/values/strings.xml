@@ -31,6 +31,8 @@
     <string name="title_add_produce">Add Produce</string>
     <string name="txt_produce_catgeory">Produce Category</string>
     <string name="title_produce_details">Viewing Produce Details</string>
+    <string name="title_add_offer">Add Offer</string>
+    <string name="add_offer">Add Offer</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

@@ -1,18 +1,26 @@
 package com.example.agriventure.data.models;
 
 public class Offer {
-    public int offer_id;
+    public String offer_id;
     public String product_id;
     public String buyer_name;
     public String offer_status;
     public String offer_amount;
     public String offer_date;
 
-    public int getOffer_id() {
+    public Offer(String product_id, String buyer_name, String offer_status, String offer_amount, String offer_date) {
+        this.product_id = product_id;
+        this.buyer_name = buyer_name;
+        this.offer_status = offer_status;
+        this.offer_amount = offer_amount;
+        this.offer_date = offer_date;
+    }
+
+    public String getOffer_id() {
         return offer_id;
     }
 
-    public void setOffer_id(int offer_id) {
+    public void setOffer_id(String offer_id) {
         this.offer_id = offer_id;
     }
 
