@@ -36,7 +36,6 @@ public class MarketFragment extends BaseFragment {
     private MaterialTextView marketEmptyText, myProduceTitle, allProduceTitle;
     private MaterialButton buttonAddProduce;
     private ProgressBar mProgressBar;
-    private ProductsAdapter productsAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -97,7 +96,7 @@ public class MarketFragment extends BaseFragment {
 
     private void setUpMyProducts(List<Produce> products) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        productsAdapter = new ProductsAdapter(activity, products, produce -> {
+        ProductsAdapter productsAdapter = new ProductsAdapter(activity, products, produce -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("produce", produce);
             Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_produce_detail, bundle);

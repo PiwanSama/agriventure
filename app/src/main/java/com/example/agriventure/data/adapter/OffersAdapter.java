@@ -1,5 +1,7 @@
 package com.example.agriventure.data.adapter;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,25 +19,26 @@ import java.util.List;
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder> {
 
     private List<Offer> offerList;
+    private OfferClickListener listener;
+    private Context context;
+
+    public OffersAdapter(@NonNull Context context, List<Offer> offers, OfferClickListener listener){
+        this.context = context;
+        this.listener = listener;
+        this.offerList = offers;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.rv_market_item, parent);
-        return new ViewHolder(view);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_offer_item, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Offer offer = offerList.get(position);
-
-        MaterialTextView buyer_name = holder.buyer_name;
-        MaterialTextView offer_amount = holder.offer_amount;
-        MaterialTextView offer_date = holder.offer_date;
-
-        buyer_name.setText(offer.getBuyer_name());
-        offer_amount.setText(offer.getOffer_amount());
-        offer_date.setText(offer.getOffer_date());
+        holder.bind(offer, listener);
     }
 
     @Override
@@ -52,9 +55,20 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            buyer_name = itemView.findViewById(R.id.item_image);
-            offer_amount = itemView.findViewById(R.id.item_name);
-            offer_date = itemView.findViewById(R.id.item_weight);
+            buyer_name = itemView.findViewById(R.id.buyer_name);
+            offer_amount = itemView.findViewById(R.id.offer_amount);
+            offer_date = itemView.findViewById(R.id.offer_date);
         }
+
+        public void bind(Offer offer, OfferClickListener listener){
+            buyer_name.setText(offer.getBuyer_name());
+            offer_amount.setText(offer.getOffer_amount());
+            offer_date.setText(offer.getOffer_date());
+            itemView.setOnClickListener(v -> listener.actionOffer(offer));
+        }
+    }
+
+    public interface OfferClickListener{
+        void actionOffer(Offer offer);
     }
 }

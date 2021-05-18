@@ -33,6 +33,7 @@
     <string name="title_produce_details">Viewing Produce Details</string>
     <string name="title_add_offer">Add Offer</string>
     <string name="add_offer">Add Offer</string>
+    <string name="no_offers_text">This produce has not received any offers yet</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

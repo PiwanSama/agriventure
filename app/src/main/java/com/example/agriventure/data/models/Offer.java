@@ -8,6 +8,9 @@ public class Offer {
     public String offer_amount;
     public String offer_date;
 
+    public Offer() {
+    }
+
     public Offer(String product_id, String buyer_name, String offer_status, String offer_amount, String offer_date) {
         this.product_id = product_id;
         this.buyer_name = buyer_name;
