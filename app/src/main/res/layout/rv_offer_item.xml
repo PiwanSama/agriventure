@@ -94,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@id/offer_date_lbl">
             
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/accept_offer"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_margin="4dp"
@@ -104,6 +105,7 @@
                 android:layout_weight="1"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/negotiate_offer"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_margin="4dp"
@@ -114,6 +116,7 @@
                 android:layout_weight="1"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/decline_offer"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_margin="4dp"

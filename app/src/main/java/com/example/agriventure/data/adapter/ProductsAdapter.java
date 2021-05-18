@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
@@ -70,11 +71,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             product_price.setText(produce.getProduct_price());
             seller_name.setText(produce.getSeller_name());
             Picasso.with(itemView.getContext()).load(produce.getProduct_image()).into(product_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    listener.getProductId(produce);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.getProductId(produce));
         }
     }
 

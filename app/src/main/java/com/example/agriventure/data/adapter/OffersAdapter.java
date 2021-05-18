@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.agriventure.R;
 import com.example.agriventure.data.models.Offer;
 import com.example.agriventure.data.models.Produce;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -52,23 +53,44 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         public MaterialTextView offer_amount;
         public MaterialTextView offer_date;
 
+        public MaterialButton btnAcceptOffer;
+        public MaterialButton btnNegotiateOffer;
+        public MaterialButton btnDeclineOffer;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             buyer_name = itemView.findViewById(R.id.buyer_name);
             offer_amount = itemView.findViewById(R.id.offer_amount);
             offer_date = itemView.findViewById(R.id.offer_date);
+
+            btnAcceptOffer = itemView.findViewById(R.id.accept_offer);
+            btnNegotiateOffer = itemView.findViewById(R.id.negotiate_offer);
+            btnDeclineOffer = itemView.findViewById(R.id.decline_offer);
         }
 
         public void bind(Offer offer, OfferClickListener listener){
             buyer_name.setText(offer.getBuyer_name());
             offer_amount.setText(offer.getOffer_amount());
             offer_date.setText(offer.getOffer_date());
-            itemView.setOnClickListener(v -> listener.actionOffer(offer));
+
+            btnAcceptOffer.setOnClickListener(v -> {
+                listener.acceptOffer(offer);
+            });
+
+            btnNegotiateOffer.setOnClickListener(v -> {
+                listener.negotiateOffer(offer);
+            });
+
+            btnDeclineOffer.setOnClickListener(v -> {
+                listener.declineOffer(offer);
+            });
+
         }
     }
 
     public interface OfferClickListener{
-        void actionOffer(Offer offer);
+        void acceptOffer(Offer offer);
+        void negotiateOffer(Offer offer);
+        void declineOffer(Offer offer);
     }
 }

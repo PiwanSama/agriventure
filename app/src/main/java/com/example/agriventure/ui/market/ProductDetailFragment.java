@@ -21,6 +21,7 @@ import com.example.agriventure.data.adapter.ProductsAdapter;
 import com.example.agriventure.data.models.Offer;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.ui.BaseFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,8 +79,6 @@ public class ProductDetailFragment extends BaseFragment {
         productPrice.setText(produce.getProduct_quantity());
 
         String productKey = produce.getProduct_id().replace("-","");
-        Log.i("DETAILS", productKey);
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("offers");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -88,7 +87,6 @@ public class ProductDetailFragment extends BaseFragment {
                 myOfferList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Offer offer = dataSnapshot.getValue(Offer.class);
-                    Log.i("DETAILS", offer.getProduct_id());
                     assert offer != null;
                     if (offer.getProduct_id().equals(productKey)){
                         myOfferList.add(offer);
@@ -116,8 +114,41 @@ public class ProductDetailFragment extends BaseFragment {
 
     private void setUpMyOffers(List<Offer> offers) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        OffersAdapter offersAdapter = new OffersAdapter(activity, offers, offer -> {
-            Toast.makeText(activity, offer.getBuyer_name(), Toast.LENGTH_SHORT).show();
+        OffersAdapter offersAdapter = new OffersAdapter(activity, offers, new OffersAdapter.OfferClickListener() {
+            @Override
+            public void acceptOffer(Offer offer) {
+                String status =  offer.getOffer_status();
+                if (status.equals("Accepted")){
+                    Toast.makeText(activity, "This offer is already accepted", Toast.LENGTH_SHORT).show();
+                }else if(status.equals("Declined")){
+                    Toast.makeText(activity, "This offer is already declined", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    mDatabase.child(offer.getOffer_id()).child("offer_status").setValue("Accepted").addOnSuccessListener(aVoid -> Toast.makeText(activity, "You have accepted this offer", Toast.LENGTH_SHORT).show());
+                }
+            }
+
+            @Override
+            public void negotiateOffer(Offer offer) {
+                String status =  offer.getOffer_status();
+                if (status.equals("Pending")){
+                    Toast.makeText(activity, "We are negotiating this offer", Toast.LENGTH_SHORT).show();
+                }else{
+                    mDatabase.child(offer.getOffer_id()).child("offer_status").setValue("Pending").addOnSuccessListener(aVoid -> Toast.makeText(activity, "Negotiating this offer", Toast.LENGTH_SHORT).show());
+                }
+            }
+
+            @Override
+            public void declineOffer(Offer offer) {
+                String status =  offer.getOffer_status();
+                if (status.equals("Declined")){
+                    Toast.makeText(activity, "This offer is already declined", Toast.LENGTH_SHORT).show();
+                }else if(status.equals("Accepted")){
+                    Toast.makeText(activity, "This offer is already accepted", Toast.LENGTH_SHORT).show();
+                }else{
+                    mDatabase.child(offer.getOffer_id()).child("offer_status").setValue("Declined").addOnSuccessListener(aVoid -> Toast.makeText(activity, "You have declined this offer", Toast.LENGTH_SHORT).show());
+                }
+            }
         });
         myOffersRv.setAdapter(offersAdapter);
         myOffersRv.setLayoutManager(linearLayoutManager);
