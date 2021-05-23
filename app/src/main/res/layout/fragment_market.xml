@@ -18,80 +18,93 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.market.MarketFragment"
+            android:layout_marginBottom="120dp"
             android:padding="16dp"
-            android:layout_marginBottom="120dp">
+            tools:context=".ui.market.MarketFragment">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_market_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_market_title"
-                android:textSize="16sp"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
                 android:layout_marginTop="24dp"
+                android:text="@string/user_market_title"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/btn_add_produce"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_add_produce" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/user_market_products"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
-                android:visibility="gone"
                 android:nestedScrollingEnabled="false"
-                app:layout_constraintTop_toBottomOf="@id/user_market_title"/>
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/user_market_title" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/other_market_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/other_market_title"
-                android:textSize="16sp"
-                android:textColor="@color/grey"
-                android:textStyle="bold"
                 android:layout_marginTop="24dp"
+                android:text="@string/other_market_title"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/btn_add_produce"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_add_produce" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_produce"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:textAllCaps="false"
                 android:text="@string/add_produce"
+                android:textAllCaps="false"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
+                app:icon="@drawable/ic_add"
+                app:iconGravity="textTop"
+                app:backgroundTint="@color/transaparent_green"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/all_market_products"
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
-                android:visibility="gone"
                 android:nestedScrollingEnabled="false"
-                app:layout_constraintTop_toBottomOf="@id/other_market_title"/>
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/other_market_title" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_market_empty"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                android:src="@drawable/empty"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_add_produce"
+                android:layout_marginTop="100dp"
+                android:visibility="gone"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/market_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/market_empty"
-                android:textSize="14sp"
                 android:textColor="@color/grey"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginTop="24dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_market_empty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

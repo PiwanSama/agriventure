@@ -16,8 +16,7 @@ public class Produce implements Parcelable {
     public boolean is_sold;
     public int user_id;
 
-    public Produce() {
-    }
+    public Produce() {}
 
     public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id, String seller_name) {
         this.product_image = product_image;
@@ -31,6 +30,32 @@ public class Produce implements Parcelable {
         this.user_id = user_id;
         this.seller_name = seller_name;
     }
+
+    protected Produce(Parcel in) {
+        product_id = in.readString();
+        product_image = in.readString();
+        product_name = in.readString();
+        product_category = in.readString();
+        product_state = in.readString();
+        product_maturity_date = in.readString();
+        product_price = in.readString();
+        product_quantity = in.readString();
+        seller_name = in.readString();
+        is_sold = in.readByte() != 0;
+        user_id = in.readInt();
+    }
+
+    public static final Creator<Produce> CREATOR = new Creator<Produce>() {
+        @Override
+        public Produce createFromParcel(Parcel in) {
+            return new Produce(in);
+        }
+
+        @Override
+        public Produce[] newArray(int size) {
+            return new Produce[size];
+        }
+    };
 
     public String getSeller_name() {
         return seller_name;
@@ -127,6 +152,16 @@ public class Produce implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(product_id);
+        dest.writeString(product_image);
+        dest.writeString(product_name);
+        dest.writeString(product_category);
+        dest.writeString(product_state);
+        dest.writeString(product_maturity_date);
+        dest.writeString(product_price);
+        dest.writeString(product_quantity);
+        dest.writeString(seller_name);
+        dest.writeByte((byte) (is_sold ? 1 : 0));
+        dest.writeInt(user_id);
     }
 }

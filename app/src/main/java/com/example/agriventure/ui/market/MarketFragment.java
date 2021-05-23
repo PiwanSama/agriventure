@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class MarketFragment extends BaseFragment {
     private MaterialTextView marketEmptyText, myProduceTitle, allProduceTitle;
     private MaterialButton buttonAddProduce;
     private ProgressBar mProgressBar;
+    private AppCompatImageView emptyImage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class MarketFragment extends BaseFragment {
         buttonAddProduce = view.findViewById(R.id.btn_add_produce);
 
         mProgressBar = view.findViewById(R.id.data_loading);
+
+        emptyImage = view.findViewById(R.id.img_market_empty);
 
         myProductList = new ArrayList<>();
         return view;
@@ -90,6 +94,7 @@ public class MarketFragment extends BaseFragment {
         }else{
             buttonAddProduce.setVisibility(View.VISIBLE);
             marketEmptyText.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.VISIBLE);
             mProgressBar.setVisibility(View.GONE);
         }
     }

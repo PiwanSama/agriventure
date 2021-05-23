@@ -25,11 +25,12 @@
     <string name="add_produce">Add Produce</string>
     <string name="market_empty">There are no items in the marketplace at the moment</string>
     <string name="txt_produce_name">Product Name</string>
-    <string name="txt_produce_amount">Produce Amount</string>
+    <string name="txt_produce_amount">Produce Quantity</string>
     <string name="txt_produce_price">Price (UGX per Unit)</string>
     <string name="upload_image">Upload Image</string>
     <string name="title_add_produce">Add Produce</string>
     <string name="txt_produce_catgeory">Produce Category</string>
+    <string name="txt_produce_availability">Produce Availability</string>
     <string name="title_produce_details">Viewing Produce Details</string>
     <string name="title_add_offer">Add Offer</string>
     <string name="add_offer">Add Offer</string>
@@ -37,8 +38,13 @@
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>
+        <item>Spices</item>
         <item>Livestock</item>
         <item>Poultry</item>
         <item>Fish</item>
+    </string-array>
+    <string-array name="product_availablity">
+        <item>Available Now</item>
+        <item>Available Soon</item>
     </string-array>
 </resources>

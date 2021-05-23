@@ -1,71 +1,154 @@
 package com.example.agriventure.ui.market;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
+import com.example.agriventure.databinding.FragmentAddProduceBinding;
 import com.example.agriventure.ui.BaseFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 public class AddProduceFragment extends BaseFragment {
 
-    private MaterialButton btn_add_produce, btn_upload_image;
-    private AutoCompleteTextView category_view;
+    private Calendar c;
+    private FragmentAddProduceBinding binding;
     private DatabaseReference mDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add_produce, container, false);
-        btn_add_produce = root.findViewById(R.id.btn_add_produce);
-        btn_upload_image = root.findViewById(R.id.btn_upload_image);
-        category_view = root.findViewById(R.id.produce_category);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_produce, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        return root;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btn_add_produce.setOnClickListener(v -> {
-            writeNewProduct();
+        binding.btnAddProduce.setOnClickListener(v -> {
+            createNewProduct();
         });
 
-        btn_upload_image.setOnClickListener(v -> Toast.makeText(activity, "Todo upload image", Toast.LENGTH_SHORT).show());
+        c = Calendar.getInstance();
+
+        binding.btnUploadImage.setOnClickListener(v -> Toast.makeText(activity, "Todo upload image", Toast.LENGTH_SHORT).show());
 
         String[]  category_array= getResources().getStringArray(R.array.product_categories);
         ArrayList<String> categories= new ArrayList<>(Arrays.asList(category_array));
 
         ArrayAdapter category_adapter = new ArrayAdapter(activity, R.layout.list_item, categories);
-        category_view.setAdapter(category_adapter);
+        binding.produceCategory.setAdapter(category_adapter);
+
+        String[]  availability_array= getResources().getStringArray(R.array.product_availablity);
+        ArrayList<String> states= new ArrayList<>(Arrays.asList(availability_array));
+
+        ArrayAdapter availability_adapter = new ArrayAdapter(activity, R.layout.list_item, states);
+        binding.produceState.setAdapter(availability_adapter);
 
     }
 
-    private void writeNewProduct(){
-        Produce produce = new Produce("maize","Maize Ad Astra","Cereals","Available","12/06/2021", "600 UGX / KG", "2 Tonnes",false,1, "Hosanna Cereal Industries");
+    private void createNewProduct(){
+        Produce produce = new Produce();
+        String category = Objects.requireNonNull(binding.produceCategory.getText().toString());
+        String name = Objects.requireNonNull(binding.produceName.getText()).toString();
+        String amount = Objects.requireNonNull(binding.produceQuantity.getText()).toString();
+        String price = Objects.requireNonNull(binding.producePrice.getText()).toString();
+        String state = Objects.requireNonNull(binding.produceState.getText()).toString();
+
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_WEEK);
+
+        if (category.equals("")||category.equals("Produce Category")||state.equals("")||state.equals("Produce Availability")||name.equals("")||amount.equals("")||price.equals("")){
+            Toast.makeText(activity, "Please enter all fields",Toast.LENGTH_SHORT).show();
+        }else{
+            produce.setProduct_name(name);
+            produce.setProduct_category(category);
+            produce.setProduct_quantity(amount);
+            produce.setProduct_price(price);
+            //Set default variables
+            produce.setIs_sold(false);
+            produce.setSeller_name("Hosanna Cereals Company");
+            produce.setUser_id(1);
+            //show date picker if product is available soon
+            if (state.equals("Available Soon")){
+                DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
+                        (view, year1, monthOfYear, dayOfMonth) -> {
+
+                            String dateAvailable = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
+
+                            if (dateValid((dateAvailable))){
+                                produce.setProduct_maturity_date(dateAvailable);
+                            }else{
+                                Toast.makeText(activity, "Availability date cannot be before than today",Toast.LENGTH_SHORT).show();
+                            }
+                        }, year, month, day);
+
+                     datePickerDialog.setTitle("Product Availability Date");
+                     datePickerDialog.show();
+                 }
+            }
+
+        writeNewProduct(produce);
+
+        }
+
+        private boolean dateValid(String selectedDate) {
+            String today = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date currentDate =  dateFormat.parse(today);
+                Date availableDate = dateFormat.parse(selectedDate);
+                return availableDate.after(currentDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return false;
+    }
+
+    private void writeNewProduct(Produce produce){
+        binding.determinateBar.setVisibility(View.VISIBLE);
+        updateProgress(25);
         String newKey = mDatabase.child("produce").push().getKey();
+        updateProgress(50);
         assert newKey != null;
         produce.setProduct_id(newKey);
+        updateProgress(75);
         mDatabase.child("produce").child(newKey).setValue(produce);
+        updateProgress(100);
+
+        Toast.makeText(activity, produce.getProduct_name()+"has been added to your products",Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateProgress(int progress){
+        binding.determinateBar.setProgress(progress);
     }
 }
