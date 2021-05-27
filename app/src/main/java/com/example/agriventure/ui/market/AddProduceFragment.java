@@ -2,14 +2,19 @@ package com.example.agriventure.ui.market;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,10 +25,13 @@ import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.databinding.FragmentAddProduceBinding;
 import com.example.agriventure.ui.BaseFragment;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,12 +40,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
+
+import static android.app.Activity.RESULT_OK;
 
 public class AddProduceFragment extends BaseFragment {
 
     private Calendar c;
     private FragmentAddProduceBinding binding;
     private DatabaseReference mDatabase;
+    private Uri filePath;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private String mDownloadUrl;
+    private boolean isImageUploaded;
+    private final int PICK_IMAGE_REQUEST = 71;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +62,9 @@ public class AddProduceFragment extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_produce, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
         return binding.getRoot();
     }
@@ -59,7 +79,9 @@ public class AddProduceFragment extends BaseFragment {
 
         c = Calendar.getInstance();
 
-        binding.btnUploadImage.setOnClickListener(v -> Toast.makeText(activity, "Todo upload image", Toast.LENGTH_SHORT).show());
+        isImageUploaded = false;
+
+        binding.btnUploadImage.setOnClickListener(v -> selectProduceImage());
 
         String[]  category_array= getResources().getStringArray(R.array.product_categories);
         ArrayList<String> categories= new ArrayList<>(Arrays.asList(category_array));
@@ -75,8 +97,63 @@ public class AddProduceFragment extends BaseFragment {
 
     }
 
+    private void selectProduceImage() {
+        Intent imgUploadIntent = new Intent();
+        imgUploadIntent.setType("image/*");
+        imgUploadIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(imgUploadIntent, "Select Produce Image"),PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data!= null && data.getData() != null){
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), filePath);
+                binding.itemImage.setVisibility(View.VISIBLE);
+                binding.itemImage.setImageBitmap(bitmap);
+                isImageUploaded = true;
+                //uploadProduceImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String uploadProduceImage() {
+        if(filePath!=null){
+            final ProgressDialog imageProgressDialog = new ProgressDialog(activity);
+            imageProgressDialog.setTitle("Uploading your image");
+            imageProgressDialog.show();
+
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID());
+            ref.putFile(filePath)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        final Task<Uri> firebaseUri = taskSnapshot.getStorage().getDownloadUrl();
+                        firebaseUri.addOnSuccessListener(uri -> {
+                            mDownloadUrl = uri.toString();
+                            Toast.makeText(activity, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                            binding.btnUploadImage.setEnabled(false);
+                            imageProgressDialog.dismiss();
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        imageProgressDialog.dismiss();
+                        Toast.makeText(activity, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnProgressListener(taskSnapshot -> {
+                        double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                .getTotalByteCount());
+                        imageProgressDialog.setMessage("Uploaded "+(int)progress+"%");
+                    });
+        }
+        return mDownloadUrl;
+    }
+
     private void createNewProduct(){
         Produce produce = new Produce();
+
         String category = Objects.requireNonNull(binding.produceCategory.getText().toString());
         String name = Objects.requireNonNull(binding.produceName.getText()).toString();
         String amount = Objects.requireNonNull(binding.produceQuantity.getText()).toString();
@@ -87,7 +164,7 @@ public class AddProduceFragment extends BaseFragment {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_WEEK);
 
-        if (category.equals("")||category.equals("Produce Category")||state.equals("")||state.equals("Produce Availability")||name.equals("")||amount.equals("")||price.equals("")){
+        if (category.equals("")||category.equals("Produce Category")||state.equals("")||state.equals("Produce Availability")||name.equals("")||amount.equals("")||price.equals("")|| !isImageUploaded){
             Toast.makeText(activity, "Please enter all fields",Toast.LENGTH_SHORT).show();
         }else{
             produce.setProduct_name(name);
@@ -98,6 +175,8 @@ public class AddProduceFragment extends BaseFragment {
             produce.setIs_sold(false);
             produce.setSeller_name("Hosanna Cereals Company");
             produce.setUser_id(1);
+            //set image url
+            String imageLink = uploadProduceImage();
             //show date picker if product is available soon
             if (state.equals("Available Soon")){
                 DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
@@ -107,6 +186,7 @@ public class AddProduceFragment extends BaseFragment {
 
                             if (dateValid((dateAvailable))){
                                 produce.setProduct_maturity_date(dateAvailable);
+                                writeNewProduct(produce);
                             }else{
                                 Toast.makeText(activity, "Availability date cannot be before than today",Toast.LENGTH_SHORT).show();
                             }
@@ -115,10 +195,9 @@ public class AddProduceFragment extends BaseFragment {
                      datePickerDialog.setTitle("Product Availability Date");
                      datePickerDialog.show();
                  }
+
+            writeNewProduct(produce);
             }
-
-        writeNewProduct(produce);
-
         }
 
         private boolean dateValid(String selectedDate) {
@@ -134,21 +213,22 @@ public class AddProduceFragment extends BaseFragment {
             return false;
     }
 
-    private void writeNewProduct(Produce produce){
-        binding.determinateBar.setVisibility(View.VISIBLE);
-        updateProgress(25);
-        String newKey = mDatabase.child("produce").push().getKey();
-        updateProgress(50);
-        assert newKey != null;
-        produce.setProduct_id(newKey);
-        updateProgress(75);
-        mDatabase.child("produce").child(newKey).setValue(produce);
-        updateProgress(100);
+        private void writeNewProduct(Produce produce){
+            final ProgressDialog productProgressDialog = new ProgressDialog(activity);
+            productProgressDialog.setTitle("Uploading your produce");
+            productProgressDialog.show();
 
-        Toast.makeText(activity, produce.getProduct_name()+"has been added to your products",Toast.LENGTH_SHORT).show();
-    }
+            String newKey = mDatabase.child("produce").push().getKey();
+            assert newKey != null;
+            produce.setProduct_id(newKey);
+            mDatabase.child("produce").child(newKey).setValue(produce);
+            Toast.makeText(activity, produce.getProduct_name()+" has been added to your products",Toast.LENGTH_SHORT).show();
+            binding.btnAddProduce.setEnabled(false);
 
-    private void updateProgress(int progress){
-        binding.determinateBar.setProgress(progress);
-    }
+            productProgressDialog.hide();
+        }
+
+        //class UploadProduce extends AsyncTask<Void, Void, Void>{
+
+        //}
 }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="2">
+
+    <com.jjlf.jjkit_ripplewrapper.JJRippleWrapper
+        android:id="@+id/top_ripple"
+        app:clCenterInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/green"
+        app:rw_color="@color/white"
+        app:rw_rippleDuration="400"
+        app:rw_frameRate="10"
+        app:rw_alpha="90"
+        app:rw_centered="true"
+        android:padding="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farmer_profile"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_farmer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_sapling"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_farmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_farmer_login"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_below="@id/img_farmer"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/img_farmer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.jjlf.jjkit_ripplewrapper.JJRippleWrapper>
+
+    <com.jjlf.jjkit_ripplewrapper.JJRippleWrapper
+        android:id="@+id/bottom_ripple"
+        app:clCenterInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        app:rw_color="@color/green"
+        app:rw_rippleDuration="400"
+        app:rw_frameRate="10"
+        app:rw_alpha="90"
+        app:rw_centered="true"
+        android:padding="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/buyer_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_buyer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_hand_shake"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_buyer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_buyer_login"
+                android:textSize="22sp"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                android:layout_below="@id/img_buyer"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/img_buyer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.jjlf.jjkit_ripplewrapper.JJRippleWrapper>
+
+</LinearLayout>

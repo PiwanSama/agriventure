@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="120dp"
             android:padding="16dp"
-            tools:context=".ui.market.MarketFragment">
+            tools:context=".ui.market.FarmerMarketFragment">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/user_market_title"

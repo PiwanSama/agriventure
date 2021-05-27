@@ -3,60 +3,116 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_market">
+    app:startDestination="@+id/navigation_select_profile">
 
     <fragment
-        android:id="@+id/navigation_market"
-        android:name="com.example.agriventure.ui.market.MarketFragment"
+        android:id="@+id/navigation_select_profile"
+        android:name="com.example.agriventure.ui.login.SelectProfileFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_market" >
+        tools:layout="@layout/fragment_select_profile" >
+
         <action
-            android:id="@+id/action_navigation_market_to_navigation_add_produce"
-            app:destination="@id/navigation_add_produce" />
+            android:id="@+id/action_navigation_select_profile_to_farmer_navigation"
+            app:destination="@id/farmer_navigation" />
         <action
-            android:id="@+id/action_navigation_market_to_navigation_produce_detail"
-            app:destination="@id/navigation_produce_detail" />
+            android:id="@+id/action_navigation_select_profile_to_buyer_navigation"
+            app:destination="@id/buyer_navigation" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_credit"
-        android:name="com.example.agriventure.ui.credit.CreditFragment"
-        android:label="@string/title_credit"
-        tools:layout="@layout/fragment_credit" />
+    <navigation
+        android:id="@+id/farmer_navigation"
+        app:startDestination="@id/navigation_farmer_login">
 
-    <fragment
-        android:id="@+id/navigation_learn"
-        android:name="com.example.agriventure.ui.learn.LearnFragment"
-        android:label="@string/title_learn"
-        tools:layout="@layout/fragment_learn" />
+        <fragment
+            android:id="@+id/navigation_farmer_market"
+            android:name="com.example.agriventure.ui.market.FarmerMarketFragment"
+            android:label="@string/app_name"
+            tools:layout="@layout/fragment_farmer_market" >
+            <action
+                android:id="@+id/action_navigation_farmer_market_to_navigation_add_produce"
+                app:destination="@id/navigation_add_produce" />
+            <action
+                android:id="@+id/action_navigation_farmer_market_to_navigation_produce_detail"
+                app:destination="@id/navigation_produce_detail" />
+        </fragment>
 
-    <fragment
-        android:id="@+id/navigation_login"
-        android:name="com.example.agriventure.ui.login.LoginFragment"
-        android:label="@string/title_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_navigation_login_to_navigation_market"
-            app:destination="@id/navigation_market" />
-    </fragment>
+        <fragment
+            android:id="@+id/navigation_credit"
+            android:name="com.example.agriventure.ui.credit.CreditFragment"
+            android:label="@string/title_credit"
+            tools:layout="@layout/fragment_credit" />
 
-    <fragment
-        android:id="@+id/navigation_add_produce"
-        android:name="com.example.agriventure.ui.market.AddProduceFragment"
-        android:label="@string/title_add_produce"
-        tools:layout="@layout/fragment_add_produce" />
+        <fragment
+            android:id="@+id/navigation_learn"
+            android:name="com.example.agriventure.ui.learn.LearnFragment"
+            android:label="@string/title_learn"
+            tools:layout="@layout/fragment_learn" />
 
-    <fragment
-        android:id="@+id/navigation_produce_detail"
-        android:name="com.example.agriventure.ui.market.ProductDetailFragment"
-        android:label="@string/title_produce_details"
-        tools:layout="@layout/fragment_market_item_detail" />
+        <fragment
+            android:id="@+id/navigation_farmer_login"
+            android:name="com.example.agriventure.ui.login.FarmerLoginFragment"
+            android:label="@string/title_login"
+            tools:layout="@layout/fragment_farmer_login" >
+            <action
+                android:id="@+id/action_navigation_login_to_navigation_market"
+                app:destination="@id/navigation_market" />
+        </fragment>
 
-    <fragment
-        android:id="@+id/navigation_add_offer"
-        android:name="com.example.agriventure.ui.market.AddOfferFragment"
-        android:label="@string/title_add_offer"
-        tools:layout="@layout/fragment_add_offer" />
+        <fragment
+            android:id="@+id/navigation_add_produce"
+            android:name="com.example.agriventure.ui.market.AddProduceFragment"
+            android:label="@string/title_add_produce"
+            tools:layout="@layout/fragment_add_produce" />
+
+        <fragment
+            android:id="@+id/navigation_produce_detail"
+            android:name="com.example.agriventure.ui.market.ProductDetailFragment"
+            android:label="@string/title_produce_details"
+            tools:layout="@layout/fragment_market_item_detail" />
+
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/buyer_navigation"
+        app:startDestination="@id/navigation_buyer_login">
+
+        <fragment
+            android:id="@+id/navigation_buyer_login"
+            android:name="com.example.agriventure.ui.login.BuyerLoginFragment"
+            android:label="@string/title_login"
+            tools:layout="@layout/fragment_buyer_login" >
+        </fragment>
+
+        <fragment
+            android:id="@+id/navigation_buyer_market"
+            android:name="com.example.agriventure.ui.market.FarmerMarketFragment"
+            android:label="@string/app_name"
+            tools:layout="@layout/fragment_farmer_market" >
+            <action
+                android:id="@+id/action_navigation_buyer_market_to_navigation_add_offer"
+                app:destination="@id/navigation_add_produce" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/navigation_payments"
+            android:name="com.example.agriventure.ui.credit.PaymentsFragment"
+            android:label="@string/app_name"
+            tools:layout="@layout/fragment_credit" />
+
+        <fragment
+            android:id="@+id/navigation_add_offer"
+            android:name="com.example.agriventure.ui.market.AddOfferFragment"
+            android:label="@string/title_add_offer"
+            tools:layout="@layout/fragment_add_offer" />
+
+        <fragment
+            android:id="@+id/navigation_offers"
+            android:name="com.example.agriventure.ui.market.BuyerOffersFragment"
+            android:label="@string/app_name"
+            tools:layout="@layout/fragment_all_offers" />
+
+    </navigation>
 
 
 </navigation>

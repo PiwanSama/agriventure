@@ -68,10 +68,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         public void bind(Produce produce, ProduceClickListener listener) {
             product_name.setText(produce.getProduct_name());
             product_quantity.setText(produce.getProduct_quantity());
-            product_price.setText(produce.getProduct_price());
+            product_price.setText(produce.getProduct_price()+" UGX");
             seller_name.setText(produce.getSeller_name());
-            Picasso.with(itemView.getContext()).load(produce.getProduct_image()).into(product_image);
             itemView.setOnClickListener(v -> listener.getProductId(produce));
+
+            Picasso.with(itemView.getContext()).load(produce.getProduct_image()).into(product_image);
         }
     }
 

@@ -15,6 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,10 +28,12 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         Set<Integer> topLevelDestinations = new HashSet<>();
-        topLevelDestinations.add(R.id.navigation_login);
+        topLevelDestinations.add(R.id.navigation_farmer_login);
+        topLevelDestinations.add(R.id.navigation_buyer_login);
         topLevelDestinations.add(R.id.navigation_market);
         topLevelDestinations.add(R.id.navigation_credit);
         topLevelDestinations.add(R.id.navigation_learn);
+        topLevelDestinations.add(R.id.navigation_select_profile);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
                 .build();
@@ -39,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId()==R.id.navigation_login){
-                navView.setVisibility(View.GONE);
-            }else{
-                navView.setVisibility(View.VISIBLE);
-            }
+            if(destination.getId()==R.id.navigation_select_profile||destination.getId()==R.id.navigation_farmer_login||destination.getId()==R.id.navigation_buyer_login) {
+                    Objects.requireNonNull(getSupportActionBar()).hide();
+                    navView.setVisibility(View.GONE);
+                }
+            else{
+                    navView.setVisibility(View.VISIBLE);
+                }
         });
     }
     

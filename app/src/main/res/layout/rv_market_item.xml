@@ -18,7 +18,6 @@
             android:id="@+id/item_image"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:src="@drawable/maize"
             android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

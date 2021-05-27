@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Agriventure</string>
-    <string name="app_subtitle">Log in to your account below</string>
+    <string name="app_farmer_subtitle">Log in to your farmer profile below</string>
+    <string name="app_buyer_subtitle">Log in to your buyer profile below</string>
     <string name="title_market">Market</string>
     <string name="title_credit">Credit</string>
     <string name="title_learn">Learn</string>
@@ -12,7 +13,7 @@
     <string name="item_farm_location">Farmed in Aboket, Soroti</string>
     <string name="item_price">600 UGX / KG</string>
     <string name="item_weight_lbl">Amount : </string>
-    <string name="item_price_lbl">Price : </string>
+    <string name="item_price_lbl">Price (UGX per Unit) : </string>
     <string name="offers_title">Offers for this item</string>
     <string name="buyer_name">Nana Industries</string>
     <string name="offer_amount_lbl">Amount Offered : </string>
@@ -32,9 +33,17 @@
     <string name="txt_produce_catgeory">Produce Category</string>
     <string name="txt_produce_availability">Produce Availability</string>
     <string name="title_produce_details">Viewing Produce Details</string>
-    <string name="title_add_offer">Add Offer</string>
-    <string name="add_offer">Add Offer</string>
+    <string name="title_add_offer">Place an Offer</string>
+    <string name="add_offer">Submit Offer</string>
     <string name="no_offers_text">This produce has not received any offers yet</string>
+    <string name="txt_farmer_login">Login as Farmer</string>
+    <string name="txt_buyer_login">Login as Buyer</string>
+    <string name="title_payments">Pending Payments</string>
+    <string name="txt_offer_amount">Price Offered (UGX)</string>
+    <string name="disclaimer_text">When you submit this offer, Hosanna Cereal Industries will respond to it. Kindly note that an approval will debit your FlexiPay wallet</string>
+    <string name="place_offer_text">Enter your offer price below</string>
+    <string name="buyer_market_title">Welcome to the Agriventure Marketplace</string>
+    <string name="buyer_market_subtitle">View and place offers for market items below</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>
