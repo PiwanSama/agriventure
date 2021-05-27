@@ -80,7 +80,7 @@ public class FarmerMarketFragment extends BaseFragment {
         });
 
         buttonAddProduce.setOnClickListener(v -> {
-            Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_add_produce);
+            Navigation.findNavController(getView()).navigate(R.id.action_navigation_farmer_market_to_navigation_add_produce);
         });
     }
 
@@ -102,7 +102,7 @@ public class FarmerMarketFragment extends BaseFragment {
         ProductsAdapter productsAdapter = new ProductsAdapter(activity, products, produce -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("produce", produce);
-            Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_produce_detail, bundle);
+            Navigation.findNavController(getView()).navigate(R.id.action_navigation_farmer_market_to_navigation_produce_detail, bundle);
         });
         myProductsRv.setAdapter(productsAdapter);
         myProductsRv.setLayoutManager(linearLayoutManager);

@@ -95,7 +95,7 @@ public class BuyerMarketFragment extends BaseFragment {
         ProductsAdapter productsAdapter = new ProductsAdapter(activity, products, produce -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("produce", produce);
-            Navigation.findNavController(getView()).navigate(R.id.action_navigation_market_to_navigation_produce_detail, bundle);
+            Navigation.findNavController(getView()).navigate(R.id.action_navigation_buyer_market_to_navigation_add_offer, bundle);
         });
         allProductsRv.setAdapter(productsAdapter);
         allProductsRv.setLayoutManager(linearLayoutManager);

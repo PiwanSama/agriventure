@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_market"
+        android:id="@+id/navigation_farmer_market"
         android:icon="@drawable/ic_market"
         android:title="@string/title_market" />
 

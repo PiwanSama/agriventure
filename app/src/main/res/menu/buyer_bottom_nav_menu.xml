@@ -9,11 +9,11 @@
     <item
         android:id="@+id/navigation_offers"
         android:icon="@drawable/ic_learn"
-        android:title="@string/title_credit" />
+        android:title="@string/title_offers" />
 
     <item
         android:id="@+id/navigation_payments"
         android:icon="@drawable/ic_credit"
-        android:title="@string/title_learn" />
+        android:title="@string/title_menu_payments" />
 
 </menu>

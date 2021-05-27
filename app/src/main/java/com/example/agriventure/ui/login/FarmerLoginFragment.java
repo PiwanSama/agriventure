@@ -36,10 +36,11 @@ public class FarmerLoginFragment extends BaseFragment {
         @Override
         public void onComplete(String pin) {
             if(pin.equals("2222")){
-                Navigation.findNavController(getView()).navigate(R.id.action_navigation_login_to_navigation_market);
+                activity.setUpBottomNavigation("Farmer", R.menu.farmer_bottom_nav_menu, R.id.navigation_farmer_market);
+                Navigation.findNavController(getView()).navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_market);
             }else{
-                }
                 Toast.makeText(activity, "Incorrect PIN entered", Toast.LENGTH_SHORT).show();
+                }
             }
 
         @Override
