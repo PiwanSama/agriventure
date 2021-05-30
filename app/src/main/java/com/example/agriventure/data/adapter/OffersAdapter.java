@@ -17,6 +17,8 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
+import static com.example.agriventure.R.color.greyish;
+
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder> {
 
     private List<Offer> offerList;
@@ -47,14 +49,13 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         return offerList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public MaterialTextView buyer_name;
         public MaterialTextView offer_amount;
         public MaterialTextView offer_date;
 
         public MaterialButton btnAcceptOffer;
-        public MaterialButton btnNegotiateOffer;
         public MaterialButton btnDeclineOffer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,7 +65,6 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
             offer_date = itemView.findViewById(R.id.offer_date);
 
             btnAcceptOffer = itemView.findViewById(R.id.accept_offer);
-            btnNegotiateOffer = itemView.findViewById(R.id.negotiate_offer);
             btnDeclineOffer = itemView.findViewById(R.id.decline_offer);
         }
 
@@ -73,24 +73,33 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
             offer_amount.setText(offer.getOffer_amount());
             offer_date.setText(offer.getOffer_date());
 
-            btnAcceptOffer.setOnClickListener(v -> {
-                listener.acceptOffer(offer);
-            });
+            if (offer.getOffer_status().equals("Accepted")||offer.getOffer_status().equals("Declined")){
+                disableButtons();
+            }else{
+                btnAcceptOffer.setOnClickListener(v -> {
+                    listener.acceptOffer(offer);
+                    disableButtons();
+                });
 
-            btnNegotiateOffer.setOnClickListener(v -> {
-                listener.negotiateOffer(offer);
-            });
+                btnDeclineOffer.setOnClickListener(v -> {
+                    listener.declineOffer(offer);
+                });
+            }
+        }
 
-            btnDeclineOffer.setOnClickListener(v -> {
-                listener.declineOffer(offer);
-            });
-
+        private void disableButtons(){
+            btnAcceptOffer.setEnabled(false);
+            btnDeclineOffer.setEnabled(false);
+            btnDeclineOffer.setBackgroundColor(context.getResources().getColor(R.color.light_grey));
+            btnAcceptOffer.setBackgroundColor(context.getResources().getColor(R.color.light_grey));
+            btnDeclineOffer.setTextColor(context.getResources().getColor(R.color.white));
+            btnAcceptOffer.setTextColor(context.getResources().getColor(R.color.white));
         }
     }
 
     public interface OfferClickListener{
         void acceptOffer(Offer offer);
-        void negotiateOffer(Offer offer);
         void declineOffer(Offer offer);
     }
+
 }

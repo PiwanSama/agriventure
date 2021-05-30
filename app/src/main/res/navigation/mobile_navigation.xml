@@ -86,7 +86,6 @@
             <action
                 android:id="@+id/action_navigation_buyer_login_to_navigation_buyer_market"
                 app:destination="@id/navigation_buyer_market" />
-
         </fragment>
 
         <fragment
@@ -115,7 +114,7 @@
             android:id="@+id/navigation_offers"
             android:name="com.example.agriventure.ui.market.BuyerOffersFragment"
             android:label="@string/app_name"
-            tools:layout="@layout/fragment_all_offers" />
+            tools:layout="@layout/fragment_offers" />
 
     </navigation>
 

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         topLevelDestinations.add(R.id.navigation_farmer_login);
         topLevelDestinations.add(R.id.navigation_buyer_login);
         topLevelDestinations.add(R.id.navigation_select_profile);
+        topLevelDestinations.add(R.id.navigation_farmer_market);
+        topLevelDestinations.add(R.id.navigation_credit);
+        topLevelDestinations.add(R.id.navigation_learn);
+        topLevelDestinations.add(R.id.navigation_buyer_market);
+        topLevelDestinations.add(R.id.navigation_offers);
+        topLevelDestinations.add(R.id.navigation_payments);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
                 .build();
@@ -47,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
             if(destination.getId()==R.id.navigation_select_profile||destination.getId()==R.id.navigation_farmer_login||destination.getId()==R.id.navigation_buyer_login) {
                     Objects.requireNonNull(getSupportActionBar()).hide();
                     navView.setVisibility(View.GONE);
-                }
+                }else{
+                Objects.requireNonNull(getSupportActionBar()).show();
+            }
         });
     }
 

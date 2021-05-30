@@ -39,7 +39,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder holder, int position) {
-        Produce produce = produceList.get(position);
         holder.bind(produceList.get(position), produceClickListener);
     }
 

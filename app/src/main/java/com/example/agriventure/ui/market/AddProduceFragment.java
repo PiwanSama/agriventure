@@ -25,6 +25,7 @@ import com.example.agriventure.R;
 import com.example.agriventure.data.models.Produce;
 import com.example.agriventure.databinding.FragmentAddProduceBinding;
 import com.example.agriventure.ui.BaseFragment;
+import com.example.agriventure.util.Constants;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -173,10 +174,10 @@ public class AddProduceFragment extends BaseFragment {
             produce.setProduct_price(price);
             //Set default variables
             produce.setIs_sold(false);
-            produce.setSeller_name("Hosanna Cereals Company");
-            produce.setUser_id(1);
+            produce.setSeller_name(Constants.sellerName);
+            produce.setUser_id(Constants.sellerID);
             //set image url
-            String imageLink = uploadProduceImage();
+            produce.setProduct_image(uploadProduceImage());
             //show date picker if product is available soon
             if (state.equals("Available Soon")){
                 DatePickerDialog datePickerDialog = new DatePickerDialog(activity,

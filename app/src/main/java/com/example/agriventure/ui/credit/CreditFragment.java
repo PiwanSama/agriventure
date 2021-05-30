@@ -13,12 +13,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.agriventure.R;
+import com.example.agriventure.ui.BaseFragment;
 
-public class CreditFragment extends Fragment {
+public class CreditFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_credit, container, false);
+
+        //activity.getActionBar().setDisplayHomeAsUpEnabled(true);
 
         return root;
     }

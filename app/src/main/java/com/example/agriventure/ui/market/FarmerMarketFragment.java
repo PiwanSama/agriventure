@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -99,6 +101,7 @@ public class FarmerMarketFragment extends BaseFragment {
 
     private void setUpMyProducts(List<Produce> products) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+       // GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 2);
         ProductsAdapter productsAdapter = new ProductsAdapter(activity, products, produce -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("produce", produce);
