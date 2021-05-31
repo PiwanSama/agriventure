@@ -56,6 +56,8 @@
     <string name="txt_authorize_accept">Authorize Payment</string>
     <string name="about_company_title">About Company</string>
     <string name="about_company">Hosanna Cereals and Spices was founded in 2001. The company is based in Luwero and specializes in large scale production of cereals and spices. You may contact them on +2567820938473</string>
+    <string name="posts_empty">There are no posts yet</string>
+    <string name="posts_title">Learn something new with Agriventure today</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

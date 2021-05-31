@@ -47,6 +47,15 @@
             android:id="@+id/navigation_learn"
             android:name="com.example.agriventure.ui.learn.LearnFragment"
             android:label="@string/title_learn"
+            tools:layout="@layout/fragment_learn">
+            <action
+                android:id="@+id/action_navigation_learn_to_article_details"
+                app:destination="@id/navigation_article_details" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/navigation_article_details"
+            android:name="com.example.agriventure.ui.learn.ArticleDetailsFragment"
             tools:layout="@layout/fragment_learn" />
 
         <fragment
