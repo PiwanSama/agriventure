@@ -34,6 +34,7 @@ public class PaymentsFragment extends BaseFragment {
     private MaterialTextView transactionsEmptyText, buyerTransactionTitle;
     private ProgressBar mProgressBar;
     private AppCompatImageView emptyImage;
+    private DatabaseReference mDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -55,16 +56,16 @@ public class PaymentsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("payments");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("payments");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 allTransactionList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Transaction offer = dataSnapshot.getValue(Transaction.class);
-                    if (offer.getSender_name().equals(Constants.buyerName)){
-                        allTransactionList.add(offer);
+                    Transaction transaction = dataSnapshot.getValue(Transaction.class);
+                    if (transaction.getSender_name().equals(Constants.buyerName)){
+                        allTransactionList.add(transaction);
                     }
                 }
                 updateView();
@@ -91,11 +92,8 @@ public class PaymentsFragment extends BaseFragment {
 
     private void setUpMyTransactions(List<Transaction> transactions) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        TransactionsAdapter transactionsAdapter = new TransactionsAdapter(activity, transactions, new TransactionsAdapter.PaymentClickListener() {
-            @Override
-            public void authorizePayment(Transaction transaction) {
-
-            }
+        TransactionsAdapter transactionsAdapter = new TransactionsAdapter(activity, transactions, transaction -> {
+            mDatabase.child(transaction.getTran_id()).child("status").setValue("Authorized");
         });
         allTransactionsRv.setAdapter(transactionsAdapter);
         allTransactionsRv.setLayoutManager(linearLayoutManager);

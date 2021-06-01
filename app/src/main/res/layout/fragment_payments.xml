@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/buyer_offers_title"
+                android:text="@string/buyer_payments_title"
                 android:textColor="@color/font_blue"
                 android:textSize="16sp"
                 android:visibility="gone"

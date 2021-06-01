@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -95,6 +98,7 @@ public class AddProduceFragment extends BaseFragment {
 
         ArrayAdapter availability_adapter = new ArrayAdapter(activity, R.layout.list_item, states);
         binding.produceState.setAdapter(availability_adapter);
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
 
     }
 
@@ -115,7 +119,7 @@ public class AddProduceFragment extends BaseFragment {
                 binding.itemImage.setVisibility(View.VISIBLE);
                 binding.itemImage.setImageBitmap(bitmap);
                 isImageUploaded = true;
-                //uploadProduceImage();
+                mDownloadUrl = uploadProduceImage();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -177,7 +181,7 @@ public class AddProduceFragment extends BaseFragment {
             produce.setSeller_name(Constants.sellerName);
             produce.setUser_id(Constants.sellerID);
             //set image url
-            produce.setProduct_image(uploadProduceImage());
+            produce.setProduct_image(mDownloadUrl);
             //show date picker if product is available soon
             if (state.equals("Available Soon")){
                 DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
@@ -222,14 +226,11 @@ public class AddProduceFragment extends BaseFragment {
             String newKey = mDatabase.child("produce").push().getKey();
             assert newKey != null;
             produce.setProduct_id(newKey);
+            //produce.setProduct_image(uploadProduceImage());
             mDatabase.child("produce").child(newKey).setValue(produce);
             Toast.makeText(activity, produce.getProduct_name()+" has been added to your products",Toast.LENGTH_SHORT).show();
             binding.btnAddProduce.setEnabled(false);
 
             productProgressDialog.hide();
         }
-
-        //class UploadProduce extends AsyncTask<Void, Void, Void>{
-
-        //}
 }

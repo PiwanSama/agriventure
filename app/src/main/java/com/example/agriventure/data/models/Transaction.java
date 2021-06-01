@@ -7,18 +7,28 @@ public class Transaction {
     public String sender_name;
     public String payment_reason;
     public String payment_date;
+    public String status;
     public boolean is_completed;
     public boolean is_reversed;
 
     public Transaction() {
     }
 
-    public Transaction(String tran_amount, String recepient_name, String sender_name, String payment_reason, String payment_date, boolean is_completed, boolean is_reversed) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Transaction(String tran_amount, String recepient_name, String sender_name, String payment_reason, String payment_date, String status, boolean is_completed, boolean is_reversed) {
         this.tran_amount = tran_amount;
         this.recepient_name = recepient_name;
         this.sender_name = sender_name;
         this.payment_reason = payment_reason;
         this.payment_date = payment_date;
+        this.status = status;
         this.is_completed = is_completed;
         this.is_reversed = is_reversed;
     }

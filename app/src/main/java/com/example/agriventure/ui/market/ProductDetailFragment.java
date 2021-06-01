@@ -156,7 +156,7 @@ public class ProductDetailFragment extends BaseFragment {
         String formattedAmount = formatter.format(tran_amount)+" UGX";
         Log.i("TOTAL", formattedAmount);
 
-        Transaction transaction = new Transaction(formattedAmount, Constants.sellerName,Constants.buyerName, "Payment of "+tran_amount+" to "+Constants.sellerName+" for "+produce.getProduct_quantity()+" of "+produce.getProduct_name(), today,false,false);
+        Transaction transaction = new Transaction(formattedAmount, Constants.sellerName,Constants.buyerName, "Payment of "+tran_amount+" to "+Constants.sellerName+" for "+produce.getProduct_quantity()+" of "+produce.getProduct_name(), today, "Pending", false,false);
 
         String newKey = mDatabase.child("payments").push().getKey();
         assert newKey != null;

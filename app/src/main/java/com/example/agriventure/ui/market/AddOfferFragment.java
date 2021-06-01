@@ -23,13 +23,17 @@ import com.example.agriventure.util.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AddOfferFragment extends BaseFragment {
@@ -37,12 +41,19 @@ public class AddOfferFragment extends BaseFragment {
     private MaterialButton btn_add_offer;
     private DatabaseReference mDatabase;
 
+    private Produce produce;
+
     private MaterialTextView productName;
     private MaterialTextView productAmount;
     private MaterialTextView productPrice;
     private MaterialTextView sellerName;
 
     private TextInputEditText amountText;
+
+    private List<Offer> allOfferList;
+
+    private boolean offerPlaced;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +69,7 @@ public class AddOfferFragment extends BaseFragment {
 
         amountText = view.findViewById(R.id.offer_amount);
 
-        //activity.getActionBar().setDisplayHomeAsUpEnabled(true);
+        allOfferList = new ArrayList<>();
 
         return view;
     }
@@ -68,7 +79,7 @@ public class AddOfferFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Bundle bundle = getArguments();
-        Produce produce = bundle.getParcelable("produce");
+        produce = bundle.getParcelable("produce");
 
         productName.setText(produce.getProduct_name());
         productPrice.setText(produce.getProduct_price()+" UGX");
@@ -89,15 +100,40 @@ public class AddOfferFragment extends BaseFragment {
     }
 
     private void writeNewOffer(String productKey, String offerAmount, String productName){
-        String now = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
-        Offer offer = new Offer(productKey,productName,Constants.buyerName, "Pending",offerAmount, now, Constants.sellerName);
-        String newKey = mDatabase.child("offers").push().getKey();
-        assert newKey != null;
-        offer.setOffer_id(newKey);
-        mDatabase.child("offers").child(newKey).setValue(offer);
-        Toast.makeText(activity, "Your offer has been placed!",Toast.LENGTH_SHORT).show();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("offers");
 
-        btn_add_offer.setEnabled(false);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                allOfferList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Offer offer = dataSnapshot.getValue(Offer.class);
+                    if (offer.getBuyer_name().equals(Constants.buyerName)||offer.getProduct_name().equals(produce.getProduct_name())){
+                        offerPlaced=true;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if (offerPlaced){
+            Toast.makeText(activity, "You have already placed an offer for this item",Toast.LENGTH_SHORT).show();
+        }else{
+            String now = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
+            Offer offer = new Offer(productKey,productName,Constants.buyerName, "Pending",offerAmount, now, Constants.sellerName);
+            String newKey = mDatabase.child("offers").push().getKey();
+            assert newKey != null;
+            offer.setOffer_id(newKey);
+            mDatabase.child("offers").child(newKey).setValue(offer);
+            Toast.makeText(activity, "Your offer has been placed!",Toast.LENGTH_SHORT).show();
+
+            btn_add_offer.setEnabled(false);
+        }
     }
 }

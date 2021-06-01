@@ -67,7 +67,7 @@
                 android:visibility="gone"
                 app:icon="@drawable/ic_add"
                 app:iconGravity="textTop"
-                app:backgroundTint="@color/transaparent_green"
+                app:backgroundTint="@color/green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
