@@ -43,6 +43,10 @@ public class BuyerOffersAdapter extends RecyclerView.Adapter<BuyerOffersAdapter.
                 holder.btnAcceptOffer.setVisibility(View.VISIBLE);
                 break;
 
+            case "Pending":
+                holder.btnPendingOffer.setVisibility(View.VISIBLE);
+                break;
+
             case "Declined":
                 holder.btnDeclineOffer.setVisibility(View.VISIBLE);
                 break;
@@ -64,6 +68,7 @@ public class BuyerOffersAdapter extends RecyclerView.Adapter<BuyerOffersAdapter.
 
         public MaterialButton btnAcceptOffer;
         public MaterialButton btnDeclineOffer;
+        public MaterialButton btnPendingOffer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,10 +79,11 @@ public class BuyerOffersAdapter extends RecyclerView.Adapter<BuyerOffersAdapter.
 
             btnAcceptOffer = itemView.findViewById(R.id.accept_offer);
             btnDeclineOffer = itemView.findViewById(R.id.decline_offer);
+            btnPendingOffer = itemView.findViewById(R.id.pending_offer);
         }
 
         public void bind(Offer offer){
-            product_name.setText(offer.getProductName()+" - ");
+            product_name.setText(offer.getProductName()+" -");
             seller_name.setText(offer.getSeller_name());
             offer_amount.setText(offer.getOffer_amount());
             offer_date.setText(offer.getOffer_date());

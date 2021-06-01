@@ -60,8 +60,6 @@ public class AddOfferFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_add_offer, container, false);
         btn_add_offer = view.findViewById(R.id.btn_add_offer);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         productName = view.findViewById(R.id.item_name);
         productAmount = view.findViewById(R.id.item_weight);
         productPrice = view.findViewById(R.id.item_price);
@@ -127,10 +125,10 @@ public class AddOfferFragment extends BaseFragment {
             String now = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
             Offer offer = new Offer(productKey,productName,Constants.buyerName, "Pending",offerAmount, now, Constants.sellerName);
-            String newKey = mDatabase.child("offers").push().getKey();
+            String newKey = mDatabase.push().getKey();
             assert newKey != null;
             offer.setOffer_id(newKey);
-            mDatabase.child("offers").child(newKey).setValue(offer);
+            mDatabase.child(newKey).setValue(offer);
             Toast.makeText(activity, "Your offer has been placed!",Toast.LENGTH_SHORT).show();
 
             btn_add_offer.setEnabled(false);

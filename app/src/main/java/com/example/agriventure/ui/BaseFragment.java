@@ -20,13 +20,8 @@ public class BaseFragment extends Fragment {
         return false;
     }
 
-    boolean isNetworkConnected(){
+    public boolean isNetworkConnected(){
         return com.example.agriventure.util.util.NetworkUtil.getConnectivityString(activity);
-    }
-
-    Boolean isUserLoggedIn(){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        return preferences.getBoolean("isUser", false);
     }
 
     @Override

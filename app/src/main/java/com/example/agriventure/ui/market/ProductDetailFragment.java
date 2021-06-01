@@ -126,10 +126,29 @@ public class ProductDetailFragment extends BaseFragment {
         OffersAdapter offersAdapter = new OffersAdapter(activity, offers, new OffersAdapter.OfferClickListener() {
             @Override
             public void acceptOffer(Offer offer) {
-                String status =  offer.getOffer_status();
-                if (status.equals("Accepted")){
-                    writeNewTransaction(offer);
-                }
+
+                mDatabase.child("offers").child(offer.getOffer_id()).child("offer_status").setValue("Accepted");
+
+                final ProgressDialog productProgressDialog = new ProgressDialog(activity);
+                productProgressDialog.setTitle("Initiating Transaction");
+                productProgressDialog.show();
+
+                String today = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
+                DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+                int tran_amount = Integer.parseInt(offer.getOffer_amount())*Integer.parseInt(produce.getProduct_quantity());
+                String formattedAmount = formatter.format(tran_amount)+" UGX";
+
+                Transaction transaction = new Transaction(formattedAmount, Constants.sellerName,Constants.buyerName, "Payment of "+tran_amount+" to "+Constants.sellerName+" for "+produce.getProduct_quantity()+" of "+produce.getProduct_name(), today, "Pending", false,false);
+
+                String newKey = mDatabase.child("payments").push().getKey();
+                assert newKey != null;
+                transaction.setTran_id(newKey);
+                mDatabase.child("payments").child(newKey).setValue(transaction);
+                Toast.makeText(activity, "Transaction has been submitted for authorization",Toast.LENGTH_SHORT).show();
+
+                productProgressDialog.hide();
             }
 
             @Override
@@ -141,30 +160,6 @@ public class ProductDetailFragment extends BaseFragment {
         myOffersRv.setLayoutManager(linearLayoutManager);
         myOffersRv.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
-    }
-
-    private void writeNewTransaction(Offer offer){
-        final ProgressDialog productProgressDialog = new ProgressDialog(activity);
-        productProgressDialog.setTitle("Initiating Transaction");
-        productProgressDialog.show();
-
-        String today = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-
-        DecimalFormat formatter = new DecimalFormat("#,###,###");
-
-        int tran_amount = Integer.parseInt(offer.getOffer_amount())*Integer.parseInt(produce.getProduct_quantity());
-        String formattedAmount = formatter.format(tran_amount)+" UGX";
-        Log.i("TOTAL", formattedAmount);
-
-        Transaction transaction = new Transaction(formattedAmount, Constants.sellerName,Constants.buyerName, "Payment of "+tran_amount+" to "+Constants.sellerName+" for "+produce.getProduct_quantity()+" of "+produce.getProduct_name(), today, "Pending", false,false);
-
-        String newKey = mDatabase.child("payments").push().getKey();
-        assert newKey != null;
-        transaction.setTran_id(newKey);
-        mDatabase.child("payments").child(newKey).setValue(transaction);
-        Toast.makeText(activity, "Transaction has been submitted for authorization",Toast.LENGTH_SHORT).show();
-
-        productProgressDialog.hide();
     }
 
 }

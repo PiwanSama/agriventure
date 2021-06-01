@@ -92,9 +92,7 @@ public class PaymentsFragment extends BaseFragment {
 
     private void setUpMyTransactions(List<Transaction> transactions) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        TransactionsAdapter transactionsAdapter = new TransactionsAdapter(activity, transactions, transaction -> {
-            mDatabase.child(transaction.getTran_id()).child("status").setValue("Authorized");
-        });
+        TransactionsAdapter transactionsAdapter = new TransactionsAdapter(activity, transactions, transaction -> mDatabase.child(transaction.getTran_id()).child("status").setValue("Authorized"));
         allTransactionsRv.setAdapter(transactionsAdapter);
         allTransactionsRv.setLayoutManager(linearLayoutManager);
         allTransactionsRv.setVisibility(View.VISIBLE);

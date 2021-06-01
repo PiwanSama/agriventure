@@ -199,9 +199,9 @@ public class AddProduceFragment extends BaseFragment {
 
                      datePickerDialog.setTitle("Product Availability Date");
                      datePickerDialog.show();
-                 }
-
-            writeNewProduct(produce);
+                 }else{
+                writeNewProduct(produce);
+            }
             }
         }
 

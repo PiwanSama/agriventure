@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.agriventure.R;
 import com.example.agriventure.data.models.Offer;
 import com.example.agriventure.data.models.Transaction;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         public MaterialTextView paid_to_text;
         public MaterialTextView payment_narration;
         public MaterialTextView payment_date;
+        public MaterialButton btn_authorize;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +59,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             paid_to_text = itemView.findViewById(R.id.paid_to_text);
             payment_narration = itemView.findViewById(R.id.payment_narration);
             payment_date = itemView.findViewById(R.id.payment_date);
+            btn_authorize = itemView.findViewById(R.id.authorize_payment);
         }
 
         public void bind(Transaction transaction, PaymentClickListener listener) {
@@ -65,7 +68,12 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             payment_narration.setText(transaction.getPayment_reason());
             payment_date.setText(transaction.getPayment_date());
 
-            listener.authorizePayment(transaction);
+            if (transaction.getStatus().equals("Authorized")){
+                btn_authorize.setEnabled(false);
+                btn_authorize.setText("Authorized");
+            }
+
+            btn_authorize.setOnClickListener(v -> listener.authorizePayment(transaction));
         }
     }
 

@@ -1,14 +1,19 @@
 package com.example.agriventure;
 
+import android.net.Network;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -59,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void showSnack(String message){
+        Snackbar snack =
+                Snackbar.make(this.findViewById(android.R.id.content),
+                        message,
+                        BaseTransientBottomBar.LENGTH_LONG);
+        snack.setBackgroundTint(this.getResources().getColor(R.color.orange,
+                this.getTheme()));
+        snack.setTextColor(this.getResources().getColor(R.color.white,
+                this.getTheme()));
+        snack.show();
+    }
+
 
     public void setUpBottomNavigation(String profile, int menuID, int checkedItemID){
         if (profile.equals("Farmer")){

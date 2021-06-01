@@ -54,6 +54,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
         public MaterialTextView buyer_name;
         public MaterialTextView offer_amount;
         public MaterialTextView offer_date;
+        public MaterialTextView offer_status;
 
         public MaterialButton btnAcceptOffer;
         public MaterialButton btnDeclineOffer;
@@ -63,15 +64,17 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.ViewHolder
             buyer_name = itemView.findViewById(R.id.buyer_name);
             offer_amount = itemView.findViewById(R.id.offer_amount);
             offer_date = itemView.findViewById(R.id.offer_date);
+            offer_status = itemView.findViewById(R.id.offer_status);
 
             btnAcceptOffer = itemView.findViewById(R.id.accept_offer);
             btnDeclineOffer = itemView.findViewById(R.id.decline_offer);
         }
 
         public void bind(Offer offer, OfferClickListener listener){
-            buyer_name.setText(offer.getBuyer_name());
+            buyer_name.setText(offer.getBuyer_name()+" - ");
             offer_amount.setText(offer.getOffer_amount());
             offer_date.setText(offer.getOffer_date());
+            offer_status.setText(offer.getOffer_status());
 
             if (offer.getOffer_status().equals("Accepted")||offer.getOffer_status().equals("Declined")){
                 disableButtons();

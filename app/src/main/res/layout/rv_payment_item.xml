@@ -75,7 +75,7 @@
             android:textSize="12sp"
             android:textAllCaps="false"
             android:fontFamily="@font/bentonregular"
-            app:backgroundTint="@color/green"
+            app:backgroundTint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

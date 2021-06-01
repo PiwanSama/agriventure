@@ -21,14 +21,23 @@
             android:id="@+id/buyer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/buyer_name"
             android:textSize="16sp"
-            android:textColor="@color/light_grey"
+            android:textColor="@color/font_blue"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/offer_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toEndOf="@id/buyer_name"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/offer_amount_lbl"

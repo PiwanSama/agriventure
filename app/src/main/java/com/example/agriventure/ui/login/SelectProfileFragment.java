@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.login;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 
@@ -35,15 +37,27 @@ public class SelectProfileFragment extends BaseFragment {
         return root;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        farmerLayout.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_farmer_navigation));
 
-        buyerLayout.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_buyer_navigation));
+        if (isNetworkConnected()){
+            farmerLayout.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_farmer_navigation));
 
-        topRipple.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_farmer_navigation));
+            buyerLayout.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_buyer_navigation));
 
-        bottomRipple.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_buyer_navigation));
+            topRipple.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_farmer_navigation));
+
+            bottomRipple.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_navigation_select_profile_to_buyer_navigation));
+        }else{
+            farmerLayout.setOnClickListener(v -> activity.showSnack("No internet connection!"));
+
+            buyerLayout.setOnClickListener(v -> activity.showSnack("No internet connection!"));
+
+            topRipple.setOnClickListener(v -> activity.showSnack("No internet connection!"));
+
+            bottomRipple.setOnClickListener(v -> activity.showSnack("No internet connection!"));
+        }
     }
 }
