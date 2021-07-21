@@ -6,4 +6,5 @@
     <color name="light_grey">#7C868D</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dribble_grey">#F3F3F8</color>
 </resources>

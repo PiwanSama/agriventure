@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/font_blue">
 
         <ProgressBar
             android:id="@+id/data_loading"
@@ -15,60 +16,146 @@
             android:layout_height="50dp"
             android:layout_centerInParent="true"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/stats_holder"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_alignParentTop="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/total_accepted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="32sp"
+                    android:fontFamily="@font/bentonbold"
+                    android:textColor="@color/green"
+                    android:layout_centerInParent="true"/>
+                <TextView
+                    android:id="@+id/total_accepted_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_below="@id/total_accepted"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bentonbold"
+                    android:text="@string/accepted"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/total_pending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="32sp"
+                    android:fontFamily="@font/bentonbold"
+                    android:textColor="@color/orange"
+                    android:layout_centerInParent="true"/>
+                <TextView
+                    android:id="@+id/total_pending_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_below="@id/total_pending"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bentonbold"
+                    android:text="@string/pending"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/total_declined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="32sp"
+                    android:fontFamily="@font/bentonbold"
+                    android:textColor="@color/white"
+                    android:layout_centerInParent="true"/>
+                <TextView
+                    android:id="@+id/total_declined_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_below="@id/total_declined"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bentonbold"
+                    android:text="@string/declined"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/item_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="120dp"
-            android:padding="16dp"
-            tools:context=".ui.market.BuyerMarketFragment">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/buyer_market_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/buyer_offers_title"
-                android:textColor="@color/font_blue"
-                android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/all_market_products"
+            android:layout_below="@id/stats_holder"
+            app:cardCornerRadius="30dp"
+            app:contentPadding="0dp"
+            android:visibility="gone">
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
-                android:nestedScrollingEnabled="false"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/buyer_market_title" />
+                android:layout_marginBottom="120dp"
+                android:padding="16dp"
+                tools:context=".ui.market.BuyerMarketFragment">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_offers_empty"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                android:src="@drawable/offers_empty"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="100dp"
-                android:visibility="gone"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_market_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="24dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/offers_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/offers_empty"
-                android:textColor="@color/font_blue"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/img_offers_empty" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_offers_empty"
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/offers_empty"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="100dp"
+                    android:visibility="gone"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/offers_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/offers_empty"
+                    android:textColor="@color/font_blue"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_offers_empty" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </RelativeLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.example.agriventure.data.adapter.BuyerOffersAdapter;
 import com.example.agriventure.data.models.Offer;
 import com.example.agriventure.ui.BaseFragment;
 import com.example.agriventure.util.Constants;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,9 +33,11 @@ public class BuyerOffersFragment extends BaseFragment {
 
     private List<Offer> allOfferList;
     private RecyclerView allOffersRv;
-    private MaterialTextView marketEmptyText, buyerOfferTitle;
+    private MaterialTextView marketEmptyText, acceptedText, pendingText, declinedText;
+    private LinearLayout statsHolder;
     private ProgressBar mProgressBar;
     private AppCompatImageView emptyImage;
+    private MaterialCardView cardView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,11 +46,16 @@ public class BuyerOffersFragment extends BaseFragment {
         allOffersRv = view.findViewById(R.id.all_market_products);
 
         marketEmptyText = view.findViewById(R.id.offers_empty);
-        buyerOfferTitle = view.findViewById(R.id.buyer_market_title);
+        statsHolder = view.findViewById(R.id.stats_holder);
+        acceptedText = view.findViewById(R.id.total_accepted);
+        pendingText = view.findViewById(R.id.total_pending);
+        declinedText = view.findViewById(R.id.total_declined);
 
         mProgressBar = view.findViewById(R.id.data_loading);
 
         emptyImage = view.findViewById(R.id.img_offers_empty);
+
+        cardView = view.findViewById(R.id.item_card);
 
         allOfferList = new ArrayList<>();
         return view;
@@ -80,7 +89,7 @@ public class BuyerOffersFragment extends BaseFragment {
 
     private void updateView() {
         if (allOfferList.size()>0){
-            buyerOfferTitle.setVisibility(View.VISIBLE);
+            statsHolder.setVisibility(View.VISIBLE);
             setUpMyOffers(allOfferList);
         }else{
             marketEmptyText.setVisibility(View.VISIBLE);
@@ -92,10 +101,31 @@ public class BuyerOffersFragment extends BaseFragment {
     private void setUpMyOffers(List<Offer> offers) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
         BuyerOffersAdapter offersAdapter = new BuyerOffersAdapter(activity, offers);
+        setUpStats(offers);
         allOffersRv.setAdapter(offersAdapter);
         allOffersRv.setLayoutManager(linearLayoutManager);
         allOffersRv.setVisibility(View.VISIBLE);
         allOffersRv.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void setUpStats(List<Offer> offers) {
+        int accepted = 0;
+        int pending = 0;
+        int declined = 0;
+        for (int i=0;i<offers.size();i++){
+            Offer o = offers.get(i);
+            if (o.getOffer_status().equals("Accepted")){
+                accepted+=1;
+            }else if (o.getOffer_status().equals("Pending")){
+                pending+=1;
+            }else{
+                declined+=1;
+            }
+        }
+        acceptedText.setText(String.valueOf(accepted));
+        pendingText.setText(String.valueOf(pending));
+        declinedText.setText(String.valueOf(declined));
     }
 }

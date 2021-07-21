@@ -59,6 +59,9 @@
     <string name="posts_empty">There are no posts yet</string>
     <string name="posts_title">Learn something new with Agriventure today</string>
     <string name="buyer_payments_title">Hello, below are your payments</string>
+    <string name="pending">Pending</string>
+    <string name="declined">Declined</string>
+    <string name="accepted">Accepted</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>
