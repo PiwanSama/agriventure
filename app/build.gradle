@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.github.Only-IceSoul:JJRippleWrapper:1.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/parent_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,26 +14,78 @@
             android:id="@+id/data_loading"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:visibility="visible"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
+            android:id="@+id/stats_holder"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/comapny_logo"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                app:civ_border_width="4dp"
+                app:civ_border_color="@color/green"/>
+
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@id/logo"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="@string/buyer_company_name"/>
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="24sp"
+                android:layout_toEndOf="@id/logo"
+                android:layout_marginStart="16dp"
+                android:layout_below="@id/company_name"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/total_authorized_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/total"
+                android:layout_toEndOf="@id/logo"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white"
+                android:text="@string/title_total"
+                android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/item_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/stats_holder"
+            app:cardCornerRadius="30dp"
+            app:contentPadding="0dp"
+            android:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="120dp"
             android:padding="16dp"
             tools:context=".ui.market.BuyerMarketFragment">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/payments_market_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/buyer_payments_title"
-                android:textColor="@color/font_blue"
-                android:textSize="16sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/all_payments"
@@ -41,7 +94,7 @@
                 android:layout_marginTop="24dp"
                 android:nestedScrollingEnabled="false"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/payments_market_title" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_payments_empty"
@@ -69,6 +122,8 @@
                 app:layout_constraintTop_toBottomOf="@id/img_payments_empty" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </RelativeLayout>
 

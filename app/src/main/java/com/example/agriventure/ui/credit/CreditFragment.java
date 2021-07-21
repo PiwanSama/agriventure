@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.agriventure.data.adapter.TransactionsAdapter;
 import com.example.agriventure.data.models.Transaction;
 import com.example.agriventure.ui.BaseFragment;
 import com.example.agriventure.util.Constants;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +39,11 @@ public class CreditFragment extends BaseFragment {
 
     private List<Transaction> allTransactionList;
     private RecyclerView allTransactionsRv;
-    private MaterialTextView transactionsEmptyText;
+    private MaterialTextView transactionsEmptyText, totalText;
     private ProgressBar mProgressBar;
     private AppCompatImageView emptyImage;
+    private MaterialCardView cardView;
+    private RelativeLayout parent, statsHolder;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +52,16 @@ public class CreditFragment extends BaseFragment {
         allTransactionsRv = view.findViewById(R.id.all_payments);
 
         transactionsEmptyText = view.findViewById(R.id.payments_empty);
+        totalText = view.findViewById(R.id.total);
 
         mProgressBar = view.findViewById(R.id.data_loading);
 
         emptyImage = view.findViewById(R.id.img_payments_empty);
+
+        cardView = view.findViewById(R.id.item_card);
+
+        statsHolder = view.findViewById(R.id.stats_holder);
+        parent = view.findViewById(R.id.parent_view);
 
         allTransactionList = new ArrayList<>();
         return view;
@@ -95,10 +106,29 @@ public class CreditFragment extends BaseFragment {
     private void setUpMyTransactions(List<Transaction> transactions) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
         CreditAdapter creditAdapter = new CreditAdapter(activity, transactions);
+        setUpStats(transactions);
         allTransactionsRv.setAdapter(creditAdapter);
         allTransactionsRv.setLayoutManager(linearLayoutManager);
         allTransactionsRv.setVisibility(View.VISIBLE);
         allTransactionsRv.setVisibility(View.VISIBLE);
+        statsHolder.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
+        parent.setBackgroundColor(activity.getResources().getColor(R.color.font_blue));
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void setUpStats(List<Transaction> transactions) {
+        double accepted = 0;
+        for (int i=0;i<transactions.size();i++){
+            Transaction t = transactions.get(i);
+            if (t.getStatus().equals("Authorized")){
+                String amt = t.getTran_amount().replace(" UGX","");
+                String amtFormat = amt.replace(",", "");
+                double price =  Double.parseDouble(amtFormat);
+                accepted = accepted+price;
+            }
+        }
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        totalText.setText(formatter.format(accepted) +" UGX");
     }
 }

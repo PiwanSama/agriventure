@@ -62,6 +62,11 @@
     <string name="pending">Pending</string>
     <string name="declined">Declined</string>
     <string name="accepted">Accepted</string>
+    <string name="buyer_company_name">Tropical Spices Inc</string>
+    <string name="farmer_company_name">Hosanna Cerals and Spices</string>
+    <string name="title_total">Total Payments Made</string>
+    <string name="offers_title_text">Your Offers</string>
+    <string name="title_total_farmer">Total Payments Received</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

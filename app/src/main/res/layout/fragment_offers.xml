@@ -6,21 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/parent_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/font_blue">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:id="@+id/data_loading"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/stats_holder"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:visibility="gone"
+            android:layout_height="110dp"
+            android:visibility="visible"
             android:orientation="horizontal"
             android:weightSum="3"
             android:layout_alignParentTop="true">
@@ -35,8 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="32sp"
-                    android:fontFamily="@font/bentonbold"
-                    android:textColor="@color/green"
+                    android:textColor="@color/white"
                     android:layout_centerInParent="true"/>
                 <TextView
                     android:id="@+id/total_accepted_text"
@@ -47,7 +47,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/bentonbold"
+                    
                     android:text="@string/accepted"/>
             </RelativeLayout>
 
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="32sp"
-                    android:fontFamily="@font/bentonbold"
+                    
                     android:textColor="@color/orange"
                     android:layout_centerInParent="true"/>
                 <TextView
@@ -73,7 +73,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/bentonbold"
+                    
                     android:text="@string/pending"/>
             </RelativeLayout>
 
@@ -87,8 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="32sp"
-                    android:fontFamily="@font/bentonbold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/greyish"
                     android:layout_centerInParent="true"/>
                 <TextView
                     android:id="@+id/total_declined_text"
@@ -99,7 +98,7 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/bentonbold"
+                    
                     android:text="@string/declined"/>
             </RelativeLayout>
 
@@ -113,6 +112,7 @@
             app:cardCornerRadius="30dp"
             app:contentPadding="0dp"
             android:visibility="gone">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -155,6 +155,7 @@
                     app:layout_constraintTop_toBottomOf="@id/img_offers_empty" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
     </RelativeLayout>

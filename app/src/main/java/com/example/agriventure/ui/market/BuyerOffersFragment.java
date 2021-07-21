@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,7 @@ public class BuyerOffersFragment extends BaseFragment {
     private ProgressBar mProgressBar;
     private AppCompatImageView emptyImage;
     private MaterialCardView cardView;
+    private RelativeLayout parent;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class BuyerOffersFragment extends BaseFragment {
         emptyImage = view.findViewById(R.id.img_offers_empty);
 
         cardView = view.findViewById(R.id.item_card);
+
+        parent = view.findViewById(R.id.parent_view);
 
         allOfferList = new ArrayList<>();
         return view;
@@ -107,6 +111,7 @@ public class BuyerOffersFragment extends BaseFragment {
         allOffersRv.setVisibility(View.VISIBLE);
         allOffersRv.setVisibility(View.VISIBLE);
         cardView.setVisibility(View.VISIBLE);
+        parent.setBackgroundColor(activity.getResources().getColor(R.color.font_blue));
         mProgressBar.setVisibility(View.GONE);
     }
 
