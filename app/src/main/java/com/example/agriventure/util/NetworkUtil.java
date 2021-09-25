@@ -1,4 +1,4 @@
-package com.example.agriventure.util.util;
+package com.example.agriventure.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

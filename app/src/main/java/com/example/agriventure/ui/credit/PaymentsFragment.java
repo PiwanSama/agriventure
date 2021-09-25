@@ -41,7 +41,7 @@ public class PaymentsFragment extends BaseFragment {
     private AppCompatImageView emptyImage;
     private DatabaseReference mDatabase;
     private MaterialCardView cardView;
-    private RelativeLayout parent, statsHolder;
+    private RelativeLayout statsHolder;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class PaymentsFragment extends BaseFragment {
         cardView = view.findViewById(R.id.item_card);
 
         statsHolder = view.findViewById(R.id.stats_holder);
-        parent = view.findViewById(R.id.parent_view);
 
         allTransactionList = new ArrayList<>();
         return view;
@@ -112,7 +111,6 @@ public class PaymentsFragment extends BaseFragment {
         statsHolder.setVerticalGravity(View.VISIBLE);
         statsHolder.setVisibility(View.VISIBLE);
         cardView.setVisibility(View.VISIBLE);
-        parent.setBackgroundColor(activity.getResources().getColor(R.color.font_blue));
         mProgressBar.setVisibility(View.GONE);
     }
 

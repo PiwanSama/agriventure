@@ -21,7 +21,7 @@ public class BaseFragment extends Fragment {
     }
 
     public boolean isNetworkConnected(){
-        return com.example.agriventure.util.util.NetworkUtil.getConnectivityString(activity);
+        return com.example.agriventure.util.NetworkUtil.getConnectivityString(activity);
     }
 
     @Override

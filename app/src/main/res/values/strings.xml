@@ -26,7 +26,7 @@
     <string name="add_produce">Add Produce</string>
     <string name="market_empty">There are no items in the marketplace at the moment</string>
     <string name="txt_produce_name">Product Name</string>
-    <string name="txt_produce_amount">Produce Quantity</string>
+    <string name="txt_produce_amount">Produce Quantity (KG)</string>
     <string name="txt_produce_price">Price (UGX per Unit)</string>
     <string name="upload_image">Upload Image</string>
     <string name="title_add_produce">Add Produce</string>
