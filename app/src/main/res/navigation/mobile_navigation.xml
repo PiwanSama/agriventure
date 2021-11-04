@@ -25,6 +25,12 @@
         app:startDestination="@id/navigation_farmer_login">
 
         <fragment
+            android:id="@+id/navigation_farmer_register"
+            android:name="com.example.agriventure.ui.login.FarmerRegisterFragment"
+            android:label="@string/title_register"
+            tools:layout="@layout/fragment_farmer_register" />
+
+        <fragment
             android:id="@+id/navigation_farmer_market"
             android:name="com.example.agriventure.ui.market.FarmerMarketFragment"
             android:label="@string/app_name"
@@ -66,6 +72,9 @@
             <action
                 android:id="@+id/action_navigation_farmer_login_to_navigation_farmer_market"
                 app:destination="@id/navigation_farmer_market" />
+            <action
+                android:id="@+id/action_navigation_farmer_login_to_navigation_farmer_register"
+                app:destination="@id/navigation_farmer_register" />
         </fragment>
 
         <fragment

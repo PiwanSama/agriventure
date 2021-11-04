@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import com.andrognito.pinlockview.IndicatorDots;
@@ -15,6 +16,7 @@ import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 import com.example.agriventure.R;
 import com.example.agriventure.ui.BaseFragment;
+import com.google.android.material.button.MaterialButton;
 
 public class FarmerLoginFragment extends BaseFragment {
 
@@ -30,6 +32,13 @@ public class FarmerLoginFragment extends BaseFragment {
         mPinLockView.attachIndicatorDots(mIndicatorDots);
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        MaterialButton navigateToRegister = view.findViewById(R.id.create_farmer_profile);
+        navigateToRegister.setOnClickListener(view1 ->
+                Navigation.findNavController(getView()).navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_register));
     }
 
     private final PinLockListener pinLockListener = new PinLockListener() {

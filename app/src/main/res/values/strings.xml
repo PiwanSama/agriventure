@@ -67,6 +67,13 @@
     <string name="title_total">Total Payments Made</string>
     <string name="offers_title_text">Your Offers</string>
     <string name="title_total_farmer">Total Payments Received</string>
+    <string name="create_farmer_profile">Create farmer profile</string>
+    <string name="txt_user_name">Full Name</string>
+    <string name="txt_number">Your phone number</string>
+    <string name="business_name">Business Name</string>
+    <string name="pin">Set your PIN</string>
+    <string name="title_register">Create your profile</string>
+    <string name="or_text">OR</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

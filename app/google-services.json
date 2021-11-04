@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "5873187164",
+    "firebase_url": "https://agriventure-89d7d-default-rtdb.firebaseio.com",
+    "project_id": "agriventure-89d7d",
+    "storage_bucket": "agriventure-89d7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5873187164:android:70694eb4fec91bfb7ce999",
+        "android_client_info": {
+          "package_name": "com.example.agriventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5873187164-sso1j7bp771sdjeajv3hoker9866v4b8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt1Dzy6m4-mdK5ZYBCzh4phpYb4uEpLl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5873187164-sso1j7bp771sdjeajv3hoker9866v4b8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
