@@ -17,6 +17,18 @@ public class Post implements Parcelable {
         body = in.readString();
     }
 
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
+
     public String getPost_title() {
         return title;
     }

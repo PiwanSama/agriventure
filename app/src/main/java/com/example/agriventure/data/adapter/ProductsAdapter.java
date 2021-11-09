@@ -71,7 +71,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             seller_name.setText(produce.getSeller_name());
             itemView.setOnClickListener(v -> listener.getProductId(produce));
 
-            Picasso.with(itemView.getContext()).load(produce.getProduct_image()).into(product_image);
+            Picasso.get().load(produce.getProduct_image()).into(product_image);
         }
     }
 

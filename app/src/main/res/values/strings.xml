@@ -74,6 +74,7 @@
     <string name="pin">Set your PIN</string>
     <string name="title_register">Create your profile</string>
     <string name="or_text">OR</string>
+    <string name="create_buyer_profile">Create buyer profile</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>
