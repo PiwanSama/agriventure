@@ -75,7 +75,7 @@ public class PaymentsFragment extends BaseFragment {
                 allTransactionList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Transaction transaction = dataSnapshot.getValue(Transaction.class);
-                    if (transaction.getSender_name().equals(Constants.buyerName)){
+                    if (transaction.getSender_name().equals(Constants.businessName)){
                         allTransactionList.add(transaction);
                     }
                 }

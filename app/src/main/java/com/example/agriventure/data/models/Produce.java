@@ -14,11 +14,10 @@ public class Produce implements Parcelable {
     public String product_quantity;
     public String seller_name;
     public boolean is_sold;
-    public int user_id;
 
     public Produce() {}
 
-    public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, int user_id, String seller_name) {
+    public Produce(String product_image, String product_name, String product_category, String product_state, String product_maturity_date, String product_price, String product_quantity, boolean is_sold, String user_id, String seller_name) {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_category = product_category;
@@ -27,7 +26,6 @@ public class Produce implements Parcelable {
         this.product_price = product_price;
         this.product_quantity = product_quantity;
         this.is_sold = is_sold;
-        this.user_id = user_id;
         this.seller_name = seller_name;
     }
 
@@ -42,7 +40,6 @@ public class Produce implements Parcelable {
         product_quantity = in.readString();
         seller_name = in.readString();
         is_sold = in.readByte() != 0;
-        user_id = in.readInt();
     }
 
     public static final Creator<Produce> CREATOR = new Creator<Produce>() {
@@ -129,14 +126,6 @@ public class Produce implements Parcelable {
         this.is_sold = is_sold;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
     public String getProduct_image() {
         return product_image;
     }
@@ -162,6 +151,5 @@ public class Produce implements Parcelable {
         dest.writeString(product_quantity);
         dest.writeString(seller_name);
         dest.writeByte((byte) (is_sold ? 1 : 0));
-        dest.writeInt(user_id);
     }
 }

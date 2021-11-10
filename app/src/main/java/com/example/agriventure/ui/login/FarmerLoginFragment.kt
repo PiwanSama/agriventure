@@ -37,19 +37,13 @@ class FarmerLoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.createFarmerProfile.setOnClickListener { view1: View? -> Navigation.findNavController(requireView()).navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_register) }
-        controller = Navigation.findNavController(view)
+        controller = Navigation.findNavController(requireView())
+        binding.createFarmerProfile.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_register) }
     }
 
     private val pinLockListener: PinLockListener = object : PinLockListener {
         override fun onComplete(pin: String) {
-            getUserPin(pin)
-            /*if (pin == "2222") {
-                activity.setUpBottomNavigation("Farmer", R.menu.farmer_bottom_nav_menu, R.id.navigation_farmer_market)
-                Navigation.findNavController(view!!).navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_market)
-            } else {
-                Toast.makeText(activity, "Incorrect PIN entered", Toast.LENGTH_SHORT).show()
-            }*/
+            validateUserPIN(pin)
         }
 
         override fun onEmpty() {
@@ -59,14 +53,15 @@ class FarmerLoginFragment : BaseFragment() {
         override fun onPinChange(pinLength: Int, intermediatePin: String) {}
     }
 
-    fun getUserPin(pin : String){
+    fun validateUserPIN(pin : String){
+        Log.i("PIN Supplied", pin)
         val queryKey = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.firebaseKey,"")
-        //TODO remove unregister fragment on back pressed
-        //TODO Loading spinner on complete
-        //TODO Profile and produce key updates
-        databaseRef.child(queryKey!!).child("pin").get().addOnSuccessListener{
-            it.value?.let {
-                if (pin === it){
+        Log.i("LOGIN", queryKey!!)
+        databaseRef.child(queryKey).child("pin").get().addOnSuccessListener{
+            it?.let {
+                Log.i("LOGIN", it.value as String)
+                if (pin == it.value as String){
+                    activity.setUpBottomNavigation("Farmer", R.menu.farmer_bottom_nav_menu, R.id.navigation_farmer_market)
                     controller.navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_market)
                 }else{
                     Toast.makeText(activity, "Incorrect PIN",LENGTH_SHORT).show()

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         topLevelDestinations.add(R.id.navigation_buyer_market);
         topLevelDestinations.add(R.id.navigation_offers);
         topLevelDestinations.add(R.id.navigation_payments);
+        topLevelDestinations.add(R.id.navigation_farmer_register);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations)
                 .build();
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if(destination.getId()==R.id.navigation_select_profile||destination.getId()==R.id.navigation_farmer_login||destination.getId()==R.id.navigation_buyer_login) {
+            if(destination.getId()==R.id.navigation_select_profile||
+                    destination.getId()==R.id.navigation_farmer_login||
+                    destination.getId()==R.id.navigation_buyer_login) {
                     Objects.requireNonNull(getSupportActionBar()).hide();
                     navView.setVisibility(View.GONE);
                 }else{

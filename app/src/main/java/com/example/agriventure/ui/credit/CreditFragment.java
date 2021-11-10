@@ -77,7 +77,7 @@ public class CreditFragment extends BaseFragment {
                 allTransactionList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Transaction transaction = dataSnapshot.getValue(Transaction.class);
-                    if (transaction.getSender_name().equals(Constants.buyerName)&&transaction.getStatus().equals("Authorized")){
+                    if (transaction.getSender_name().equals(Constants.businessName)&&transaction.getStatus().equals("Authorized")){
                         allTransactionList.add(transaction);
                     }
                 }

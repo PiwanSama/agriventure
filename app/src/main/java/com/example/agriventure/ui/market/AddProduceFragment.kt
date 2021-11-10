@@ -90,7 +90,7 @@ class AddProduceFragment : BaseFragment() {
                 binding.itemImage.visibility = View.VISIBLE
                 binding.itemImage.setImageBitmap(bitmap)
                 isImageUploaded = true
-                mDownloadUrl = uploadProduceImage()!!
+                mDownloadUrl = uploadProduceImage()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -108,7 +108,7 @@ class AddProduceFragment : BaseFragment() {
                     firebaseUri.addOnSuccessListener { uri: Uri ->
                         mDownloadUrl = uri.toString()
                         Toast.makeText(activity, "Image Uploaded", Toast.LENGTH_SHORT).show()
-                        binding!!.btnUploadImage.isEnabled = false
+                        binding.btnUploadImage.isEnabled = false
                         imageProgressDialog.dismiss()
                     }
                 }
@@ -143,8 +143,7 @@ class AddProduceFragment : BaseFragment() {
             produce.setProduct_price(price)
             //Set default variables
             produce.isIs_sold = false
-            produce.setSeller_name(Constants.sellerName)
-            produce.setUser_id(Constants.sellerID)
+            produce.setSeller_name(Constants.businessName)
             //set image url
             produce.setProduct_image(mDownloadUrl)
             //show date picker if product is available soon
@@ -184,12 +183,12 @@ class AddProduceFragment : BaseFragment() {
         val productProgressDialog = ProgressDialog(activity)
         productProgressDialog.setTitle("Uploading your produce")
         productProgressDialog.show()
-        val newKey = mDatabase!!.child("produce").push().key!!
+        val newKey = mDatabase.child("produce").push().key!!
         produce.setProduct_id(newKey)
         //produce.setProduct_image(uploadProduceImage());
-        mDatabase!!.child("produce").child(newKey).setValue(produce)
+        mDatabase.child("produce").child(newKey).setValue(produce)
         Toast.makeText(activity, produce.getProduct_name() + " has been added to your products", Toast.LENGTH_SHORT).show()
-        binding!!.btnAddProduce.isEnabled = false
+        binding.btnAddProduce.isEnabled = false
         productProgressDialog.hide()
     }
 }
