@@ -28,7 +28,11 @@
             android:id="@+id/navigation_farmer_register"
             android:name="com.example.agriventure.ui.login.FarmerRegisterFragment"
             android:label="@string/title_register"
-            tools:layout="@layout/fragment_farmer_register" />
+            tools:layout="@layout/fragment_farmer_register" >
+            <action
+                android:id="@+id/action_navigation_farmer_register_to_navigation_farmer_market"
+                app:destination="@id/navigation_farmer_market" />
+        </fragment>
 
         <fragment
             android:id="@+id/navigation_farmer_market"
