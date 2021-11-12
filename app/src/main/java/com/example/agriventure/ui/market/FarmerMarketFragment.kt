@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.market
 
+import android.content.Context
 import com.example.agriventure.ui.BaseFragment
 import com.example.agriventure.data.models.Produce
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.agriventure.data.adapter.ProductsAdapter
 import com.example.agriventure.data.adapter.ProductsAdapter.ProduceClickListener
 import com.example.agriventure.databinding.FragmentFarmerMarketBinding
+import com.example.agriventure.util.Constants
 import java.util.ArrayList
 
 class FarmerMarketFragment : BaseFragment() {
@@ -38,7 +40,10 @@ class FarmerMarketFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+        val userName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.userName,"")
+        binding.welcomeTitle.text = "Welcome, "+userName
+
         val mDatabase = FirebaseDatabase.getInstance().reference.child("produce")
         mDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

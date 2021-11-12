@@ -26,6 +26,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.widget.DatePicker
 import android.annotation.SuppressLint
+import android.content.Context
 import android.net.Uri
 import android.view.View
 import com.example.agriventure.databinding.FragmentAddProduceBinding
@@ -59,10 +60,13 @@ class AddProduceFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAddProduce.setOnClickListener { v: View? -> createNewProduct() }
+
         c = Calendar.getInstance()
-        isImageUploaded = false
+
+        binding.companyName.setText(activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.businessName, ""))
+        binding.btnAddProduce.setOnClickListener { v: View? -> createNewProduct() }
         binding.btnUploadImage.setOnClickListener { v: View? -> selectProduceImage() }
+
         val category_array = resources.getStringArray(R.array.product_categories)
         val categories = ArrayList(Arrays.asList(*category_array))
         val category_adapter: ArrayAdapter<*> = ArrayAdapter<Any?>(activity, R.layout.list_item, categories as List<Any?>)

@@ -86,16 +86,18 @@
             android:textColor="@color/font_blue"
             android:textStyle="bold"
             android:layout_marginTop="2dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/pin_lock_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/create_farmer_profile"
+            android:id="@+id/btn_create_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="@string/create_farmer_profile"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/or_txt"/>
 

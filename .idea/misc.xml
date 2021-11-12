@@ -5,12 +5,15 @@
       <map>
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_add_offer.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_add_produce.xml" value="0.2578125" />
+        <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_article.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_buyer_login.xml" value="0.2578125" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_buyer_market.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_buyer_register.xml" value="0.25833333333333336" />
-        <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_farmer_login.xml" value="0.1" />
+        <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_credit.xml" value="0.176" />
+        <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_farmer_login.xml" value="0.264" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_farmer_market.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_farmer_register.xml" value="0.264" />
+        <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_learn.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_market_item_detail.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_offers.xml" value="0.4" />
         <entry key="..\:/Users/piwan/StudioProjects/agriventure/app/src/main/res/layout/fragment_register.xml" value="0.1" />
