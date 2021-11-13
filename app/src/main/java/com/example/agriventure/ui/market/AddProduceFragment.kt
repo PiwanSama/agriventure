@@ -1,19 +1,15 @@
 package com.example.agriventure.ui.market
 
 import com.example.agriventure.ui.BaseFragment
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import com.example.agriventure.R
-import com.google.firebase.database.FirebaseDatabase
 import android.widget.ArrayAdapter
 import android.content.Intent
 import android.app.Activity
-import android.graphics.Bitmap
 import android.provider.MediaStore
 import android.app.ProgressDialog
 import com.google.android.gms.tasks.OnSuccessListener
@@ -28,9 +24,12 @@ import android.widget.DatePicker
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import com.example.agriventure.databinding.FragmentAddProduceBinding
 import com.example.agriventure.util.Constants
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.UploadTask
 import java.io.IOException
 import java.lang.Exception
@@ -39,23 +38,26 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddProduceFragment : BaseFragment() {
+class AddProduceFragment() : BaseFragment() {
     private lateinit var c: Calendar
     private lateinit var binding: FragmentAddProduceBinding
-    private lateinit var mDatabase: DatabaseReference
     private lateinit var filePath: Uri
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
     private lateinit var mDownloadUrl: String
+    private lateinit var businessName : String
     private var isImageUploaded = false
     private val PICK_IMAGE_REQUEST = 71
+
+    private val databaseRef by lazy{
+        Firebase.database.reference
+    }
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_produce, container, false)
-        mDatabase = FirebaseDatabase.getInstance().reference
+        binding = FragmentAddProduceBinding.inflate(inflater, container, false)
         storage = FirebaseStorage.getInstance()
         storageReference = storage.reference
-        return binding.getRoot()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +65,10 @@ class AddProduceFragment : BaseFragment() {
 
         c = Calendar.getInstance()
 
-        binding.companyName.setText(activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.businessName, ""))
+        businessName =
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.businessName, "").toString()
+
+        binding.companyName.setText(businessName)
         binding.btnAddProduce.setOnClickListener { v: View? -> createNewProduct() }
         binding.btnUploadImage.setOnClickListener { v: View? -> selectProduceImage() }
 
@@ -88,6 +93,7 @@ class AddProduceFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            Log.i("UPLOAD", "Got path")
             filePath = data.data!!
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, filePath)
@@ -95,8 +101,9 @@ class AddProduceFragment : BaseFragment() {
                 binding.itemImage.setImageBitmap(bitmap)
                 isImageUploaded = true
                 mDownloadUrl = uploadProduceImage()
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
+                Log.e("UPLOAD", e.toString())
             }
         }
     }
@@ -138,20 +145,20 @@ class AddProduceFragment : BaseFragment() {
         val year = c[Calendar.YEAR]
         val month = c[Calendar.MONTH]
         val day = c[Calendar.DAY_OF_WEEK]
-        if (category == "" || category == "Produce Category" || state == "" || state == "Produce Availability" || name == "" || amount == "" || price == "" || !isImageUploaded) {
+        if (category.isEmpty() || category == "Produce Category" || state.isEmpty() || state == "Produce Availability" || name.isEmpty() || amount.isEmpty() || price.isEmpty() || !isImageUploaded) {
             Toast.makeText(activity, "Please enter all fields", Toast.LENGTH_SHORT).show()
         } else {
-            produce.setProduct_name(name)
-            produce.setProduct_category(category)
-            produce.setProduct_quantity(amount)
-            produce.setProduct_price(price)
+            produce.product_name = name
+            produce.product_category = category
+            produce.product_quantity = amount
+            produce.product_price = price
             //Set default variables
             produce.isIs_sold = false
-            produce.setSeller_name(Constants.businessName)
+            produce.setSeller_name(businessName)
             //set image url
             produce.setProduct_image(mDownloadUrl)
             //show date picker if product is available soon
-            if (state == "Available Soon") {
+            if (state.equals("Available Soon")) {
                 val datePickerDialog = DatePickerDialog(activity,
                         { view: DatePicker?, year1: Int, monthOfYear: Int, dayOfMonth: Int ->
                             val dateAvailable = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year1
@@ -187,11 +194,11 @@ class AddProduceFragment : BaseFragment() {
         val productProgressDialog = ProgressDialog(activity)
         productProgressDialog.setTitle("Uploading your produce")
         productProgressDialog.show()
-        val newKey = mDatabase.child("produce").push().key!!
+        val newKey = databaseRef.child("produce").push().key!!
         produce.setProduct_id(newKey)
         //produce.setProduct_image(uploadProduceImage());
-        mDatabase.child("produce").child(newKey).setValue(produce)
-        Toast.makeText(activity, produce.getProduct_name() + " has been added to your products", Toast.LENGTH_SHORT).show()
+        databaseRef.child("produce").child(newKey).setValue(produce)
+        Toast.makeText(activity, produce.product_name + " has been added to your products", Toast.LENGTH_SHORT).show()
         binding.btnAddProduce.isEnabled = false
         productProgressDialog.hide()
     }

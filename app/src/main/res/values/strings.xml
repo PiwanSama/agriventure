@@ -75,6 +75,7 @@
     <string name="title_register">Create your profile</string>
     <string name="or_text">OR</string>
     <string name="create_buyer_profile">Create buyer profile</string>
+    <string name="txt_business_name">Business Name</string>
     <string-array name="product_categories">
         <item>Cereals</item>
         <item>Pulses</item>

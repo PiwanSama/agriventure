@@ -101,9 +101,9 @@ class ProductDetailFragment : BaseFragment() {
                 val formattedAmount = formatter.format(tran_amount.toLong()) + " UGX"
                 val transaction = Transaction(
                     formattedAmount,
-                    Constants.sellerName,
-                    Constants.buyerName,
-                    "Payment of " + tran_amount + " to " + Constants.sellerName + " for " + produce!!.getProduct_quantity() + " of " + produce!!.getProduct_name(),
+                    offer.seller_name,
+                    Constants.businessName,
+                    "Payment of " + tran_amount + " to " + offer.seller_name + " for " + produce!!.getProduct_quantity() + " of " + produce!!.getProduct_name(),
                     today,
                     "Pending",
                     false,

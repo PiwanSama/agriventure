@@ -28,8 +28,8 @@ class FarmerRegisterFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentFarmerRegisterBinding.inflate(inflater, container, false)
-        return binding.root
+       binding = FragmentFarmerRegisterBinding.inflate(inflater, container, false)
+       return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,5 +64,7 @@ class FarmerRegisterFragment : BaseFragment() {
         Toast.makeText(activity, "Your profile has been created!",LENGTH_SHORT).show()
 
         controller.navigate(R.id.action_navigation_farmer_register_to_navigation_farmer_market)
+
+
     }
 }
