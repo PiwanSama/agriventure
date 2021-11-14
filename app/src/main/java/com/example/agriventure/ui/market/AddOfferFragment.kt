@@ -69,7 +69,7 @@ class AddOfferFragment : BaseFragment() {
                 allOfferList.clear()
                 for (dataSnapshot in snapshot.children) {
                     val offer = dataSnapshot.getValue(Offer::class.java)!!
-                    if (offer.getBuyer_name() == Constants.businessName || offer.getProduct_name() == product.getProduct_name()) {
+                    if (offer.getBuyer_name() == Constants.buyerBusinessName || offer.getProduct_name() == product.getProduct_name()) {
                         offerPlaced = true
                     }
                 }
@@ -88,7 +88,7 @@ class AddOfferFragment : BaseFragment() {
             val offer = Offer(
                 productKey,
                 productName,
-                Constants.businessName,
+                Constants.buyerBusinessName,
                 "Pending",
                 offerAmount,
                 now,

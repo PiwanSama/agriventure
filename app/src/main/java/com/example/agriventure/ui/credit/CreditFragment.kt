@@ -53,7 +53,7 @@ class CreditFragment : BaseFragment() {
                     val transaction = dataSnapshot.getValue(Transaction::class.java)
                     Log.i("CREDIT", transaction.toString())
                     transaction?.let {
-                        if (transaction.getSender_name() == Constants.businessName && transaction.getStatus() == "Authorized") {
+                        if (transaction.getSender_name() == Constants.farmerBusinessName && transaction.getStatus() == "Authorized") {
                             allTransactionList!!.add(transaction)
                         }else{
                             showNoTransactionsView()

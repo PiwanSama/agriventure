@@ -102,7 +102,7 @@ class ProductDetailFragment : BaseFragment() {
                 val transaction = Transaction(
                     formattedAmount,
                     offer.seller_name,
-                    Constants.businessName,
+                    Constants.farmerBusinessName,
                     "Payment of " + tran_amount + " to " + offer.seller_name + " for " + produce!!.getProduct_quantity() + " of " + produce!!.getProduct_name(),
                     today,
                     "Pending",

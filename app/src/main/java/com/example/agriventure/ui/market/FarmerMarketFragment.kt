@@ -97,6 +97,7 @@ class FarmerMarketFragment : BaseFragment() {
             binding.userMarketProducts.adapter = myProductsAdapter
             binding.userMarketProducts.layoutManager = linearLayoutManager
             binding.userMarketProducts.visibility = View.VISIBLE
+            binding.userMarketTitle.visibility = View.VISIBLE
             binding.dataLoading.visibility = View.GONE
         }
     }
@@ -105,10 +106,11 @@ class FarmerMarketFragment : BaseFragment() {
         if (products!=null && products.isNotEmpty()) {
             val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
             val allProductsAdapter = ProductsAdapter(activity, products) { produce: Produce? -> }
-            binding.userMarketProducts.adapter = allProductsAdapter
-            binding.userMarketProducts.layoutManager = linearLayoutManager
-            binding.userMarketProducts.visibility = View.VISIBLE
+            binding.allMarketProducts.adapter = allProductsAdapter
+            binding.allMarketProducts.layoutManager = linearLayoutManager
             binding.allMarketProducts.visibility = View.VISIBLE
+            binding.allMarketTitle.visibility = View.VISIBLE
+            binding.dataLoading.visibility = View.GONE
         }
     }
 }
