@@ -28,6 +28,7 @@ import java.util.ArrayList
 
 class FarmerMarketFragment : BaseFragment() {
     private lateinit var myProductList: MutableList<Produce>
+    private lateinit var allProduceList: MutableList<Produce>
 
     lateinit var binding : FragmentFarmerMarketBinding
     override fun onCreateView(
@@ -36,12 +37,14 @@ class FarmerMarketFragment : BaseFragment() {
     ): View {
         binding = FragmentFarmerMarketBinding.inflate(inflater, container, false)
         myProductList = ArrayList()
+        allProduceList = ArrayList()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val userName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.userName,"")
+        val businessName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.farmerBusinessName,"")
         binding.welcomeTitle.text = "Welcome, "+userName
 
         val mDatabase = FirebaseDatabase.getInstance().reference.child("produce")
@@ -50,7 +53,13 @@ class FarmerMarketFragment : BaseFragment() {
                 myProductList.clear()
                 for (dataSnapshot in snapshot.children) {
                     val produce = dataSnapshot.getValue(Produce::class.java)
-                    produce?.let { myProductList.add(it) }
+                    produce?.let {
+                        if (produce.seller_name == businessName){
+                            myProductList.add(it)
+                        }else{
+                            allProduceList.add(it)
+                        }
+                    }
                 }
                 updateView()
             }
@@ -65,33 +74,41 @@ class FarmerMarketFragment : BaseFragment() {
     }
 
     private fun updateView() {
-        myProductList.let {
-            if (it.size>0){
-                binding.userMarketTitle.visibility = View.VISIBLE
-                binding.btnAddProduce.visibility = View.VISIBLE
-                setUpMyProducts(it)
-            }else{
-                binding.btnAddProduce.visibility = View.VISIBLE
-                binding.marketEmpty.visibility = View.VISIBLE
-                binding.imgMarketEmpty.visibility = View.VISIBLE
-                binding.dataLoading.visibility = View.GONE
-            }
+        if (allProduceList.isEmpty() or myProductList.isEmpty()){
+            binding.btnAddProduce.visibility = View.VISIBLE
+            binding.marketEmpty.visibility = View.VISIBLE
+            binding.imgMarketEmpty.visibility = View.VISIBLE
+            binding.dataLoading.visibility = View.GONE
+        }else{
+            setUpMyProducts(myProductList)
+            setUpAllProducts(allProduceList)
         }
     }
 
     private fun setUpMyProducts(products: List<Produce?>?) {
-        val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        // GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 2);
-        val productsAdapter = ProductsAdapter(activity, products) { produce: Produce? ->
-            val bundle = Bundle()
-            bundle.putParcelable("produce", produce)
-            Navigation.findNavController(requireView())
-                .navigate(R.id.action_navigation_farmer_market_to_navigation_produce_detail, bundle)
+        if (products!=null && products.isNotEmpty()){
+            val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            val myProductsAdapter = ProductsAdapter(activity, products) { produce: Produce? ->
+                val bundle = Bundle()
+                bundle.putParcelable("produce", produce)
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_navigation_farmer_market_to_navigation_produce_detail, bundle)
+            }
+            binding.userMarketProducts.adapter = myProductsAdapter
+            binding.userMarketProducts.layoutManager = linearLayoutManager
+            binding.userMarketProducts.visibility = View.VISIBLE
+            binding.dataLoading.visibility = View.GONE
         }
-        binding.userMarketProducts.adapter = productsAdapter
-        binding.userMarketProducts.layoutManager = linearLayoutManager
-        binding.userMarketProducts.visibility = View.VISIBLE
-        binding.allMarketProducts.visibility = View.VISIBLE
-        binding.dataLoading.visibility = View.GONE
+    }
+
+    private fun setUpAllProducts(products: List<Produce?>?) {
+        if (products!=null && products.isNotEmpty()) {
+            val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            val allProductsAdapter = ProductsAdapter(activity, products) { produce: Produce? -> }
+            binding.userMarketProducts.adapter = allProductsAdapter
+            binding.userMarketProducts.layoutManager = linearLayoutManager
+            binding.userMarketProducts.visibility = View.VISIBLE
+            binding.allMarketProducts.visibility = View.VISIBLE
+        }
     }
 }

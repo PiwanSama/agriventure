@@ -76,10 +76,10 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/create_farmer_profile"
+        android:id="@+id/btn_buyer_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_farmer_profile"
+        android:text="@string/create_buyer_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pin_lock_view"/>
 

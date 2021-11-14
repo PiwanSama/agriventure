@@ -66,7 +66,7 @@ class AddProduceFragment() : BaseFragment() {
         c = Calendar.getInstance()
 
         businessName =
-            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.businessName, "").toString()
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.farmerBusinessName, "").toString()
 
         binding.companyName.setText(businessName)
         binding.btnAddProduce.setOnClickListener { v: View? -> createNewProduct() }

@@ -48,7 +48,7 @@ class BuyerOffersFragment : BaseFragment() {
                 allOfferList.clear()
                 for (dataSnapshot in snapshot.children) {
                     dataSnapshot.getValue(Offer::class.java)?.let {
-                        if (it.buyer_name == Constants.businessName) {
+                        if (it.buyer_name == Constants.buyerBusinessName) {
                             allOfferList.add(it)
                         }
                     }

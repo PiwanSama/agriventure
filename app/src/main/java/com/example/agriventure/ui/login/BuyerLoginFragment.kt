@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.andrognito.pinlockview.PinLockListener
 import com.example.agriventure.R
-import com.example.agriventure.databinding.FragmentFarmerLoginBinding
+import com.example.agriventure.databinding.FragmentBuyerLoginBinding
 import com.example.agriventure.interfaces.OnDataReceived
 import com.example.agriventure.ui.BaseFragment
 import com.example.agriventure.util.Constants
@@ -23,18 +23,18 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class FarmerLoginFragment : BaseFragment() {
+class BuyerLoginFragment : BaseFragment() {
 
-    private lateinit var binding:FragmentFarmerLoginBinding
+    private lateinit var binding:FragmentBuyerLoginBinding
     private lateinit var controller: NavController
     private val databaseRef :DatabaseReference by lazy{
-        Firebase.database.reference.child("farmer_profiles")
+        Firebase.database.reference.child("buyer_profiles")
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding = FragmentFarmerLoginBinding.inflate(inflater,container,false)
+        binding = FragmentBuyerLoginBinding.inflate(inflater,container,false)
         binding.pinLockView.setPinLockListener(pinLockListener)
         binding.pinLockView.attachIndicatorDots(binding.indicatorDots)
         return binding.root
@@ -42,7 +42,7 @@ class FarmerLoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         controller = Navigation.findNavController(requireView())
-        binding.btnCreateProfile.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_register) }
+        binding.btnBuyerRegister.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_register) }
     }
 
     private val pinLockListener: PinLockListener = object : PinLockListener {
@@ -112,13 +112,13 @@ class FarmerLoginFragment : BaseFragment() {
                     val sharedPrefs = activity.getPreferences(Context.MODE_PRIVATE)
                         with(sharedPrefs.edit()){
                             putString(Constants.userName, it.child("name").value.toString())
-                            putString(Constants.farmerBusinessName, it.child("businessName").value.toString())
+                            putString(Constants.buyerBusinessName, it.child("businessName").value.toString())
                             putString(Constants.contact, it.child("contact").value.toString())
                             putString(Constants.firebaseKey, queryKey)
                             apply()
                         }
-                    activity.setUpBottomNavigation("Farmer", R.menu.farmer_bottom_nav_menu, R.id.navigation_farmer_market)
-                    controller.navigate(R.id.action_navigation_farmer_login_to_navigation_farmer_market)
+                    activity.setUpBottomNavigation("Buyer", R.menu.buyer_bottom_nav_menu, R.id.navigation_buyer_market)
+                    controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_market)
                 }else{
                     Toast.makeText(activity, "Incorrect PIN",LENGTH_SHORT).show()
                 }
@@ -134,7 +134,7 @@ class FarmerLoginFragment : BaseFragment() {
         binding.appSubtitle.visibility = View.GONE
         binding.indicatorDots.visibility = View.GONE
         //binding.orTxt.visibility = View.VISIBLE
-        binding.btnCreateProfile.visibility = View.VISIBLE
+        binding.btnBuyerRegister.visibility = View.VISIBLE
     }
 
 }
