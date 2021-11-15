@@ -8,20 +8,12 @@
     <string name="title_login"> </string>
     <string name="user_market_title">Your Market Products</string>
     <string name="all_market_title">All Market Products</string>
-    <string name="item_name">Maize - White Premium Adastra</string>
-    <string name="item_weight">2 Tonnes</string>
-    <string name="item_farm_location">Farmed in Aboket, Soroti</string>
-    <string name="item_price">600 UGX / KG</string>
     <string name="item_weight_lbl">Amount : </string>
     <string name="item_price_lbl">Price (UGX per Unit) : </string>
     <string name="offers_title">Offers for this item</string>
-    <string name="buyer_name">Nana Industries</string>
     <string name="offer_amount_lbl">Amount Offered : </string>
-    <string name="offer_amount">500 UGX / KG</string>
     <string name="offer_date_lbl">Offer Date : </string>
-    <string name="offer_date">13th April 2021</string>
     <string name="txt_accept">Accept</string>
-    <string name="txt_negotiate">Negotiate</string>
     <string name="txt_decline">Decline</string>
     <string name="add_produce">Add Produce</string>
     <string name="market_empty">There are no items in the marketplace at the moment</string>
@@ -31,18 +23,14 @@
     <string name="upload_image">Upload Image</string>
     <string name="title_add_produce">Add Produce</string>
     <string name="txt_produce_catgeory">Produce Category</string>
-    <string name="txt_produce_availability">Produce Availability</string>
     <string name="title_produce_details">Viewing Produce Details</string>
     <string name="title_add_offer">Place an Offer</string>
     <string name="add_offer">Submit Offer</string>
     <string name="no_offers_text">This produce has not received any offers yet</string>
     <string name="txt_farmer_login">Login as Farmer</string>
     <string name="txt_buyer_login">Login as Buyer</string>
-    <string name="title_payments">Pending Payments</string>
     <string name="txt_offer_amount">Price Offered (UGX)</string>
-    <string name="disclaimer_text">When you submit this offer, Hosanna Cereal Industries will respond to it. Kindly note that an approval will debit your FlexiPay wallet</string>
     <string name="place_offer_text">Enter your offer price below</string>
-    <string name="buyer_market_title">Welcome to the Agriventure Marketplace</string>
     <string name="buyer_market_subtitle">View and place offers for market items below</string>
     <string name="title_offers">Offers</string>
     <string name="title_menu_payments">Payments</string>
@@ -50,22 +38,18 @@
     <string name="txt_accepted">Accepted</string>
     <string name="txt_pending">Pending</string>
     <string name="txt_declined">Declined</string>
-    <string name="buyer_offers_title">Hello, you have placed the offers below</string>
     <string name="offers_empty">You have not placed any offers yet</string>
     <string name="payments_empty">You haven\'t made any payments yet</string>
     <string name="txt_authorize_accept">Authorize Payment</string>
     <string name="about_company_title">About Company</string>
     <string name="about_company">Hosanna Cereals and Spices was founded in 2001. The company is based in Luwero and specializes in large scale production of cereals and spices. You may contact them on +2567820938473</string>
     <string name="posts_empty">There are no posts yet</string>
-    <string name="posts_title">Learn something new with Agriventure today</string>
-    <string name="buyer_payments_title">Hello, below are your payments</string>
     <string name="pending">Pending</string>
     <string name="declined">Declined</string>
     <string name="accepted">Accepted</string>
     <string name="buyer_company_name">Tropical Spices Inc</string>
     <string name="farmer_company_name">Hosanna Cerals and Spices</string>
     <string name="title_total">Total Payments Made</string>
-    <string name="offers_title_text">Your Offers</string>
     <string name="title_total_farmer">Total Payments Received</string>
     <string name="create_farmer_profile">Create farmer profile</string>
     <string name="txt_user_name">Full Name</string>
@@ -78,14 +62,12 @@
     <string name="txt_business_name">Business Name</string>
     <string-array name="product_categories">
         <item>Cereals</item>
-        <item>Pulses</item>
-        <item>Spices</item>
+        <item>Fish</item>
+        <item>Fruits</item>
         <item>Livestock</item>
         <item>Poultry</item>
-        <item>Fish</item>
-    </string-array>
-    <string-array name="product_availablity">
-        <item>Available Now</item>
-        <item>Available Soon</item>
+        <item>Pulses</item>
+        <item>Spices</item>
+        <item>Vegetables</item>
     </string-array>
 </resources>

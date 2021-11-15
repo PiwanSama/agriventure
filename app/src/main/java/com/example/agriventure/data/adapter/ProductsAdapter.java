@@ -66,8 +66,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         public void bind(Produce produce, ProduceClickListener listener) {
             product_name.setText(produce.getProduct_name());
-            product_quantity.setText(produce.getProduct_quantity()+" Kg");
-            product_price.setText(produce.getProduct_price()+" UGX");
+            product_quantity.setText(produce.getProduct_quantity()+" KG ");
+            product_price.setText("Selling at "+produce.getProduct_price()+" UGX per unit");
             seller_name.setText(produce.getSeller_name());
             itemView.setOnClickListener(v -> listener.getProductId(produce));
 

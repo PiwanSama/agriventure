@@ -8,7 +8,6 @@ public class Produce implements Parcelable {
     public String product_image;
     public String product_name;
     public String product_category;
-    public String product_state;//available now, available soon
     public String product_maturity_date;
     public String product_price;
     public String product_quantity;
@@ -21,7 +20,6 @@ public class Produce implements Parcelable {
         this.product_image = product_image;
         this.product_name = product_name;
         this.product_category = product_category;
-        this.product_state = product_state;
         this.product_maturity_date = product_maturity_date;
         this.product_price = product_price;
         this.product_quantity = product_quantity;
@@ -34,7 +32,6 @@ public class Produce implements Parcelable {
         product_image = in.readString();
         product_name = in.readString();
         product_category = in.readString();
-        product_state = in.readString();
         product_maturity_date = in.readString();
         product_price = in.readString();
         product_quantity = in.readString();
@@ -84,14 +81,6 @@ public class Produce implements Parcelable {
 
     public void setProduct_category(String product_category) {
         this.product_category = product_category;
-    }
-
-    public String getProduct_state() {
-        return product_state;
-    }
-
-    public void setProduct_state(String product_state) {
-        this.product_state = product_state;
     }
 
     public String getProduct_maturity_date() {
@@ -145,7 +134,6 @@ public class Produce implements Parcelable {
         dest.writeString(product_image);
         dest.writeString(product_name);
         dest.writeString(product_category);
-        dest.writeString(product_state);
         dest.writeString(product_maturity_date);
         dest.writeString(product_price);
         dest.writeString(product_quantity);

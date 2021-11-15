@@ -76,10 +76,6 @@ class AddProduceFragment() : BaseFragment() {
         val categories = ArrayList(Arrays.asList(*category_array))
         val category_adapter: ArrayAdapter<*> = ArrayAdapter<Any?>(activity, R.layout.list_item, categories as List<Any?>)
         binding.produceCategory.setAdapter(category_adapter)
-        val availability_array = resources.getStringArray(R.array.product_availablity)
-        val states = ArrayList(Arrays.asList(*availability_array))
-        val availability_adapter: ArrayAdapter<*> = ArrayAdapter<Any?>(activity, R.layout.list_item, states as List<Any?>)
-        binding.produceState.setAdapter(availability_adapter)
         val formatter = DecimalFormat("#,###,###")
     }
 
@@ -141,11 +137,10 @@ class AddProduceFragment() : BaseFragment() {
         val name = binding.produceName.text.toString()
         val amount = binding.produceQuantity.text.toString()
         val price = binding.producePrice.text.toString()
-        val state = binding.produceState.text.toString()
         val year = c[Calendar.YEAR]
         val month = c[Calendar.MONTH]
         val day = c[Calendar.DAY_OF_WEEK]
-        if (category.isEmpty() || category == "Produce Category" || state.isEmpty() || state == "Produce Availability" || name.isEmpty() || amount.isEmpty() || price.isEmpty() || !isImageUploaded) {
+        if (category.isEmpty() || category == "Produce Category" || name.isEmpty() || amount.isEmpty() || price.isEmpty() || !isImageUploaded) {
             Toast.makeText(activity, "Please enter all fields", Toast.LENGTH_SHORT).show()
         } else {
             produce.product_name = name
@@ -158,36 +153,8 @@ class AddProduceFragment() : BaseFragment() {
             //set image url
             produce.setProduct_image(mDownloadUrl)
             //show date picker if product is available soon
-            if (state.equals("Available Soon")) {
-                val datePickerDialog = DatePickerDialog(activity,
-                        { view: DatePicker?, year1: Int, monthOfYear: Int, dayOfMonth: Int ->
-                            val dateAvailable = dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year1
-                            if (dateValid(dateAvailable)) {
-                                produce.setProduct_maturity_date(dateAvailable)
-                                writeNewProduct(produce)
-                            } else {
-                                Toast.makeText(activity, "Availability date cannot be before than today", Toast.LENGTH_SHORT).show()
-                            }
-                        }, year, month, day)
-                datePickerDialog.setTitle("Product Availability Date")
-                datePickerDialog.show()
-            } else {
-                writeNewProduct(produce)
-            }
+            writeNewProduct(produce)
         }
-    }
-
-    private fun dateValid(selectedDate: String): Boolean {
-        val today = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-        @SuppressLint("SimpleDateFormat") val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        try {
-            val currentDate = dateFormat.parse(today)
-            val availableDate = dateFormat.parse(selectedDate)
-            return availableDate.after(currentDate)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        return false
     }
 
     private fun writeNewProduct(produce: Produce) {

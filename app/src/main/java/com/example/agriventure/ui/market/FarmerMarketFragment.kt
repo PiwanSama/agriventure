@@ -74,6 +74,7 @@ class FarmerMarketFragment : BaseFragment() {
     }
 
     private fun updateView() {
+        binding.btnAddProduce.visibility = View.VISIBLE
         if (allProduceList.isEmpty() or myProductList.isEmpty()){
             binding.btnAddProduce.visibility = View.VISIBLE
             binding.marketEmpty.visibility = View.VISIBLE

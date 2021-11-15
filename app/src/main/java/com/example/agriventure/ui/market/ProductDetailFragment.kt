@@ -54,8 +54,8 @@ class ProductDetailFragment : BaseFragment() {
         produce = bundle?.getParcelable("produce")!!
         produce.let {
             binding.itemName.text = produce.product_name
-            binding.itemWeight.text = produce.product_quantity
-            binding.itemPrice.text = produce.product_quantity
+            binding.itemWeight.text = produce.product_quantity+" KG"
+            binding.itemPrice.text = produce.product_price
         }
         val productKey = produce.getProduct_id().replace("-", "")
         databaseRef.addValueEventListener(object : ValueEventListener {

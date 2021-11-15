@@ -98,23 +98,6 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/txt_produce_availability"
-                android:layout_marginTop="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
-
-                <AutoCompleteTextView
-                    android:id="@+id/produce_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    tools:ignore="LabelFor" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/txt_business_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
