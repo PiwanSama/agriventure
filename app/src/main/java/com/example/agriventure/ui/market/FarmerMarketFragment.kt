@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.Navigation
 import com.example.agriventure.R
@@ -75,7 +76,11 @@ class FarmerMarketFragment : BaseFragment() {
 
     private fun updateView() {
         binding.btnAddProduce.visibility = View.VISIBLE
-        if (allProduceList.isEmpty() or myProductList.isEmpty()){
+        var validate = allProduceList.isEmpty() || myProductList.isEmpty()
+        Log.i("MARKET", allProduceList.isEmpty().toString())
+        Log.i("MARKET", myProductList.isEmpty().toString())
+        Log.i("MARKET", validate.toString())
+        if (allProduceList.isEmpty() and myProductList.isEmpty()){
             binding.btnAddProduce.visibility = View.VISIBLE
             binding.marketEmpty.visibility = View.VISIBLE
             binding.imgMarketEmpty.visibility = View.VISIBLE

@@ -137,9 +137,6 @@ class AddProduceFragment() : BaseFragment() {
         val name = binding.produceName.text.toString()
         val amount = binding.produceQuantity.text.toString()
         val price = binding.producePrice.text.toString()
-        val year = c[Calendar.YEAR]
-        val month = c[Calendar.MONTH]
-        val day = c[Calendar.DAY_OF_WEEK]
         if (category.isEmpty() || category == "Produce Category" || name.isEmpty() || amount.isEmpty() || price.isEmpty() || !isImageUploaded) {
             Toast.makeText(activity, "Please enter all fields", Toast.LENGTH_SHORT).show()
         } else {

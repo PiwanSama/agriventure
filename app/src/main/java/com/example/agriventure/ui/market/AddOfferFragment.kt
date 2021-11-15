@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.market
 
+import android.content.Context
 import com.example.agriventure.ui.BaseFragment
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.DatabaseReference
@@ -30,6 +31,7 @@ class AddOfferFragment : BaseFragment() {
     private lateinit var binding : FragmentAddOfferBinding
     private lateinit var productKey : String
     private lateinit var product : Produce
+    private lateinit var businessName : String
     private var offerPlaced = false
     private val databaseRef : DatabaseReference by lazy{
         Firebase.database.reference.child("offers")
@@ -45,6 +47,8 @@ class AddOfferFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        businessName =
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.buyerBusinessName, "").toString()
         val bundle = arguments
         product = bundle?.getParcelable<Produce>("produce")!!
         product.let {
@@ -69,7 +73,7 @@ class AddOfferFragment : BaseFragment() {
                 allOfferList.clear()
                 for (dataSnapshot in snapshot.children) {
                     val offer = dataSnapshot.getValue(Offer::class.java)!!
-                    if (offer.getBuyer_name() == Constants.buyerBusinessName || offer.getProduct_name() == product.getProduct_name()) {
+                    if (offer.getBuyer_name() == businessName || offer.getProduct_name() == product.getProduct_name()) {
                         offerPlaced = true
                     }
                 }
@@ -88,7 +92,7 @@ class AddOfferFragment : BaseFragment() {
             val offer = Offer(
                 productKey,
                 productName,
-                Constants.buyerBusinessName,
+                businessName,
                 "Pending",
                 offerAmount,
                 now,

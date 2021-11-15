@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.login
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class BuyerLoginFragment : BaseFragment() {
 
     private lateinit var binding:FragmentBuyerLoginBinding
     private lateinit var controller: NavController
+    private lateinit var loginDialog : ProgressDialog
     private val databaseRef :DatabaseReference by lazy{
         Firebase.database.reference.child("buyer_profiles")
     }
@@ -41,6 +43,8 @@ class BuyerLoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        loginDialog = ProgressDialog(activity)
+        loginDialog.setTitle("Logging you in...")
         controller = Navigation.findNavController(requireView())
         binding.btnBuyerRegister.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_register) }
     }
@@ -53,6 +57,7 @@ class BuyerLoginFragment : BaseFragment() {
                 }
 
                 override fun userNotFound() {
+                    loginDialog.hide()
                     showRegisterUI()
                 }
             })
@@ -68,28 +73,31 @@ class BuyerLoginFragment : BaseFragment() {
         val queryKey = activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.firebaseKey,null)
         var run = true
         if (queryKey!=null){
-            Log.i("LOGIN", "not null")
             loginUser(inputPin, queryKey)
         }else{
-            Log.i("LOGIN", "null")
+            var isUserFound = false
+            var currentKey = ""
+            var currentPin = ""
             databaseRef.addListenerForSingleValueEvent(
                 object:ValueEventListener{
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        if(run){
-                            for (snap : DataSnapshot in snapshot.children){
-                                var currentKey = snap.key!!
-                                var currentPin = snap.child("pin").value as String
-                                if (currentPin.equals(inputPin)){
-                                    run = false
-                                    callback.userFound(currentPin, currentKey)
-                                }else{
-                                    callback.userNotFound()
-                                }
+                        for (snap : DataSnapshot in snapshot.children){
+                            val loopKey = snap.key!!
+                            val loopPin = snap.child("pin").value as String
+                            if (loopPin.equals(inputPin)){
+                                isUserFound = true
+                                currentKey = loopKey
+                                currentPin = loopPin
                             }
+                        }
+                        if(isUserFound){
+                            callback.userFound(currentPin, currentKey)
+                        }else{
+                            callback.userNotFound()
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+
                     }
                 }
             )
@@ -98,7 +106,6 @@ class BuyerLoginFragment : BaseFragment() {
 
     private fun loginUser(inputPin: String, queryKey: String) {
        databaseRef.child(queryKey).get().addOnSuccessListener{
-           Log.i("LOGIN", it.toString())
             it?.let {
                 /*Get key-value pairs from child node
                 val remotePinKey = it.child("pin").key
@@ -117,13 +124,16 @@ class BuyerLoginFragment : BaseFragment() {
                             putString(Constants.firebaseKey, queryKey)
                             apply()
                         }
+                    loginDialog.hide()
                     activity.setUpBottomNavigation("Buyer", R.menu.buyer_bottom_nav_menu, R.id.navigation_buyer_market)
                     controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_market)
                 }else{
+                    loginDialog.hide()
                     Toast.makeText(activity, "Incorrect PIN",LENGTH_SHORT).show()
                 }
             }
         }.addOnFailureListener{
+            loginDialog.hide()
             Toast.makeText(activity, "Something went wrong", LENGTH_SHORT).show()
         }
     }

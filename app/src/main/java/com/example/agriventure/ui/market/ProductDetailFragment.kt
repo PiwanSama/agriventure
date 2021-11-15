@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.agriventure.data.adapter.OffersAdapter
 import com.example.agriventure.data.adapter.OffersAdapter.OfferClickListener
 import android.app.ProgressDialog
+import android.content.Context
 import android.view.View
 import android.widget.Toast
 import com.example.agriventure.data.models.Transaction
@@ -97,13 +98,13 @@ class ProductDetailFragment : BaseFragment() {
                 val today = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
                 val formatter = DecimalFormat("#,###,###")
                 val tran_amount =
-                    offer.getOffer_amount().toInt() * produce!!.getProduct_quantity().toInt()
+                    offer.getOffer_amount().toInt() * produce.getProduct_quantity().toInt()
                 val formattedAmount = formatter.format(tran_amount.toLong()) + " UGX"
                 val transaction = Transaction(
                     formattedAmount,
                     offer.seller_name,
-                    Constants.farmerBusinessName,
-                    "Payment of " + tran_amount + " to " + offer.seller_name + " for " + produce!!.getProduct_quantity() + " of " + produce!!.getProduct_name(),
+                    offer.buyer_name,
+                    "Payment of " + tran_amount + " to " + offer.seller_name + " for " + produce.getProduct_quantity() + " of " + produce.getProduct_name(),
                     today,
                     "Pending",
                     false,
