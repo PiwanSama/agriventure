@@ -26,7 +26,7 @@ import com.google.firebase.ktx.Firebase
 
 class BuyerLoginFragment : BaseFragment() {
 
-    private lateinit var binding:FragmentBuyerLoginBinding
+    private lateinit var binding: FragmentBuyerLoginBinding
     private lateinit var controller: NavController
     private lateinit var loginDialog : ProgressDialog
     private val databaseRef :DatabaseReference by lazy{
@@ -43,10 +43,10 @@ class BuyerLoginFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        controller = Navigation.findNavController(requireView())
         loginDialog = ProgressDialog(activity)
         loginDialog.setTitle("Logging you in...")
-        controller = Navigation.findNavController(requireView())
-        binding.btnBuyerRegister.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_register) }
+        binding.btnCreateProfile.setOnClickListener { view1: View? -> controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_register) }
     }
 
     private val pinLockListener: PinLockListener = object : PinLockListener {
@@ -57,7 +57,6 @@ class BuyerLoginFragment : BaseFragment() {
                 }
 
                 override fun userNotFound() {
-                    loginDialog.hide()
                     showRegisterUI()
                 }
             })
@@ -70,11 +69,15 @@ class BuyerLoginFragment : BaseFragment() {
     }
 
     fun validateUserPIN(inputPin : String, callback : OnDataReceived){
-        val queryKey = activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.firebaseKey,null)
-        var run = true
+        loginDialog.show()
+        val queryKey = activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.buyerFirebaseKey,null)
         if (queryKey!=null){
+            //User data exists on the device
+            //Confirm if PIN entered matches remote PIN
             loginUser(inputPin, queryKey)
         }else{
+            //User data does not exist on device
+            //Confirm if PIN entered matches remote PIN
             var isUserFound = false
             var currentKey = ""
             var currentPin = ""
@@ -105,7 +108,7 @@ class BuyerLoginFragment : BaseFragment() {
     }
 
     private fun loginUser(inputPin: String, queryKey: String) {
-       databaseRef.child(queryKey).get().addOnSuccessListener{
+        databaseRef.child(queryKey).get().addOnSuccessListener{
             it?.let {
                 /*Get key-value pairs from child node
                 val remotePinKey = it.child("pin").key
@@ -117,13 +120,13 @@ class BuyerLoginFragment : BaseFragment() {
                 val remotePin = it.child("pin").value.toString()
                 if (inputPin == remotePin){
                     val sharedPrefs = activity.getPreferences(Context.MODE_PRIVATE)
-                        with(sharedPrefs.edit()){
-                            putString(Constants.userName, it.child("name").value.toString())
-                            putString(Constants.buyerBusinessName, it.child("businessName").value.toString())
-                            putString(Constants.contact, it.child("contact").value.toString())
-                            putString(Constants.firebaseKey, queryKey)
-                            apply()
-                        }
+                    with(sharedPrefs.edit()){
+                        putString(Constants.buyerName, it.child("name").value.toString())
+                        putString(Constants.buyerBusinessName, it.child("businessName").value.toString())
+                        putString(Constants.buyerContact, it.child("contact").value.toString())
+                        putString(Constants.buyerFirebaseKey, queryKey)
+                        apply()
+                    }
                     loginDialog.hide()
                     activity.setUpBottomNavigation("Buyer", R.menu.buyer_bottom_nav_menu, R.id.navigation_buyer_market)
                     controller.navigate(R.id.action_navigation_buyer_login_to_navigation_buyer_market)
@@ -134,17 +137,17 @@ class BuyerLoginFragment : BaseFragment() {
             }
         }.addOnFailureListener{
             loginDialog.hide()
-            Toast.makeText(activity, "Something went wrong", LENGTH_SHORT).show()
+            Toast.makeText(activity, "Something went wrong. Try again", LENGTH_SHORT).show()
         }
     }
 
     private fun showRegisterUI() {
-        Toast.makeText(activity, "Profile does not exist. Please register", LENGTH_SHORT).show()
+        loginDialog.hide()
+        Toast.makeText(activity, "Profile does not exist, please register", LENGTH_SHORT).show()
         binding.pinLockView.visibility = View.GONE
         binding.appSubtitle.visibility = View.GONE
         binding.indicatorDots.visibility = View.GONE
-        //binding.orTxt.visibility = View.VISIBLE
-        binding.btnBuyerRegister.visibility = View.VISIBLE
+        binding.btnCreateProfile.visibility = View.VISIBLE
     }
 
 }

@@ -70,7 +70,7 @@ class FarmerLoginFragment : BaseFragment() {
 
     fun validateUserPIN(inputPin : String, callback : OnDataReceived){
         loginDialog.show()
-        val queryKey = activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.firebaseKey,null)
+        val queryKey = activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.farmerFirebaseKey,null)
         if (queryKey!=null){
             //User data exists on the device
             //Confirm if PIN entered matches remote PIN
@@ -121,10 +121,10 @@ class FarmerLoginFragment : BaseFragment() {
                 if (inputPin == remotePin){
                     val sharedPrefs = activity.getPreferences(Context.MODE_PRIVATE)
                         with(sharedPrefs.edit()){
-                            putString(Constants.userName, it.child("name").value.toString())
+                            putString(Constants.farmerName, it.child("name").value.toString())
                             putString(Constants.farmerBusinessName, it.child("businessName").value.toString())
-                            putString(Constants.contact, it.child("contact").value.toString())
-                            putString(Constants.firebaseKey, queryKey)
+                            putString(Constants.farmerContact, it.child("contact").value.toString())
+                            putString(Constants.farmerFirebaseKey, queryKey)
                             apply()
                         }
                     loginDialog.hide()

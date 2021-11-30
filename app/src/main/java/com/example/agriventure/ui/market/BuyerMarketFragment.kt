@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.market
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.agriventure.data.adapter.ProductsAdapter
 import com.example.agriventure.data.models.Produce
 import com.example.agriventure.databinding.FragmentBuyerMarketBinding
 import com.example.agriventure.ui.BaseFragment
+import com.example.agriventure.util.Constants
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -36,7 +38,11 @@ class BuyerMarketFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+        val userName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.buyerName,"")
+        val businessName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.buyerBusinessName,"")
+        binding.welcomeTitle.text = "Welcome, "+userName
+
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 allProduceList.clear()
@@ -53,7 +59,7 @@ class BuyerMarketFragment : BaseFragment() {
 
     private fun updateView() {
         if (allProduceList.size > 0) {
-            binding.buyerMarketTitle.visibility = View.VISIBLE
+            binding.welcomeTitle.visibility = View.VISIBLE
             binding.buyerMarketSubtitle.visibility = View.VISIBLE
             setUpMyProducts(allProduceList)
         } else {

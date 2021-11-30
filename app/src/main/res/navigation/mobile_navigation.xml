@@ -109,7 +109,7 @@
             app:destination="@id/navigation_buyer_market" />
         <action
             android:id="@+id/action_navigation_buyer_login_to_navigation_buyer_register"
-            app:destination="@id/navigation_buyer_market" />
+            app:destination="@id/navigation_buyer_register" />
     </fragment>
 
     <fragment

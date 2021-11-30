@@ -86,10 +86,10 @@ class BuyerRegisterFragment : BaseFragment() {
         databaseRef.child(key).setValue(profile)
         val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)?:return
         with(sharedPrefs.edit()){
-            putString(Constants.userName, profile.name)
+            putString(Constants.buyerName, profile.name)
             putString(Constants.buyerBusinessName, profile.businessName)
-            putString(Constants.contact, profile.contact)
-            putString(Constants.firebaseKey, key)
+            putString(Constants.buyerContact, profile.contact)
+            putString(Constants.buyerFirebaseKey, key)
             apply()
         }
 

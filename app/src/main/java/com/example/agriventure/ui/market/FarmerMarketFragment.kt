@@ -44,7 +44,7 @@ class FarmerMarketFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val userName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.userName,"")
+        val userName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.farmerName,"")
         val businessName = activity?.getPreferences(Context.MODE_PRIVATE)?.getString(Constants.farmerBusinessName,"")
         binding.welcomeTitle.text = "Welcome, "+userName
 
@@ -77,6 +77,8 @@ class FarmerMarketFragment : BaseFragment() {
     private fun updateView() {
         binding.btnAddProduce.visibility = View.VISIBLE
         var validate = allProduceList.isEmpty() || myProductList.isEmpty()
+        Log.i("ALL", allProduceList.size.toString())
+        Log.i("ALL", myProductList.size.toString())
         if (allProduceList.isEmpty() and myProductList.isEmpty()){
             binding.btnAddProduce.visibility = View.VISIBLE
             binding.marketEmpty.visibility = View.VISIBLE
