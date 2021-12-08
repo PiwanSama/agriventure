@@ -53,8 +53,8 @@ class AddOfferFragment : BaseFragment() {
         product = bundle?.getParcelable<Produce>("produce")!!
         product.let {
             binding.itemName.text = it.product_name
-            binding.itemPrice.text = it.product_price
-            binding.itemWeight.text = it.product_quantity
+            binding.itemPrice.text = it.product_price+" UGX"
+            binding.itemWeight.text = it.product_quantity+" KG"
             binding.sellerName.text = it.seller_name
             productKey = it.product_id.replace("-", "")
         }

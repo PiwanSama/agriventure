@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.market
 
+import android.content.Context
 import com.example.agriventure.ui.BaseFragment
 import com.example.agriventure.data.models.Offer
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ import java.util.ArrayList
 class BuyerOffersFragment : BaseFragment() {
     private lateinit var allOfferList: MutableList<Offer>
     private lateinit var binding : FragmentOffersBinding
+    private lateinit var businessName : String
     private val databaseRef : DatabaseReference by lazy{
         Firebase.database.reference.child("offers")
     }
@@ -43,12 +45,14 @@ class BuyerOffersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        businessName =
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.buyerBusinessName, "").toString()
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 allOfferList.clear()
                 for (dataSnapshot in snapshot.children) {
                     dataSnapshot.getValue(Offer::class.java)?.let {
-                        if (it.buyer_name == Constants.buyerBusinessName) {
+                        if (it.buyer_name == businessName) {
                             allOfferList.add(it)
                         }
                     }
@@ -61,13 +65,16 @@ class BuyerOffersFragment : BaseFragment() {
     }
 
     private fun updateView() {
-        if (allOfferList!!.size > 0) {
+        if (allOfferList.size > 0) {
             binding.statsHolder.visibility = View.VISIBLE
             setUpMyOffers(allOfferList)
         } else {
             binding.offersEmpty.visibility = View.VISIBLE
             binding.imgOffersEmpty.visibility = View.VISIBLE
-            binding.dataLoading.visibility = View.VISIBLE
+            binding.dataLoading.visibility = View.GONE
+            binding.totalAccepted.text = "0"
+            binding.totalPending.text = "0"
+            binding.totalDeclined.text = "0"
         }
     }
 
@@ -97,8 +104,8 @@ class BuyerOffersFragment : BaseFragment() {
                 declined += 1
             }
         }
-        binding.totalAcceptedText.text = accepted.toString()
-        binding.totalPendingText.text = pending.toString()
-        binding.totalDeclinedText.text = declined.toString()
+        binding.totalAccepted.text = accepted.toString()
+        binding.totalPending.text = pending.toString()
+        binding.totalDeclined.text = declined.toString()
     }
 }

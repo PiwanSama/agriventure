@@ -40,17 +40,18 @@
                         android:textSize="32sp"
                         android:textColor="@color/white"
                         android:layout_centerInParent="true"/>
+
                     <TextView
                         android:id="@+id/total_accepted_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
                         android:layout_below="@id/total_accepted"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/accepted"
+                        android:textColor="@color/white"
 
-                        android:text="@string/accepted"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -100,7 +101,6 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:layout_centerHorizontal="true"
-
                         android:text="@string/declined"/>
                 </RelativeLayout>
 
@@ -111,7 +111,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/stats_holder"
-                app:cardCornerRadius="30dp"
                 app:contentPadding="0dp"
                 android:visibility="gone">
 

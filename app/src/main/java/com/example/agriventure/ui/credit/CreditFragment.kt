@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.credit
 
+import android.content.Context
 import com.example.agriventure.ui.BaseFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -30,6 +31,7 @@ import java.util.ArrayList
 
 class CreditFragment : BaseFragment() {
     private var allTransactionList: MutableList<Transaction?>? = null
+    private lateinit var farmerBusinessName:String
     
     private lateinit var binding : FragmentCreditBinding
     private val databaseRef by lazy{
@@ -46,18 +48,17 @@ class CreditFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        farmerBusinessName =
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.farmerBusinessName, "").toString()
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 allTransactionList!!.clear()
                 for (dataSnapshot in snapshot.children) {
-                    val transaction = dataSnapshot.getValue(Transaction::class.java)
-                    Log.i("CREDIT", transaction.toString())
-                    transaction?.let {
-                        if (transaction.getSender_name() == Constants.farmerBusinessName && transaction.getStatus() == "Authorized") {
-                            allTransactionList!!.add(transaction)
-                        }else{
-                            showNoTransactionsView()
-                        }
+                    val transaction = dataSnapshot.getValue(
+                        Transaction::class.java
+                    )
+                    if (transaction!!.getRecepient_name() == farmerBusinessName && transaction.getStatus()=="Authorized") {
+                        allTransactionList!!.add(transaction)
                     }
                 }
                 updateView()
@@ -68,20 +69,13 @@ class CreditFragment : BaseFragment() {
     }
 
     private fun updateView() {
-        Log.i("CREDIT", "Updating view....")
         if (allTransactionList!!.size > 0) {
-            Log.i("CREDIT", "There")
             setUpMyTransactions(allTransactionList)
         } else {
-            Log.i("CREDIT", "Not there")
-            showNoTransactionsView()
+            binding.paymentsEmpty.visibility = View.VISIBLE
+            binding.imgPaymentsEmpty.visibility = View.VISIBLE
+            binding.dataLoading.visibility = View.GONE
         }
-    }
-
-    private fun showNoTransactionsView() {
-        binding.paymentsEmpty.visibility = View.VISIBLE
-        binding.imgPaymentsEmpty.visibility = View.VISIBLE
-        binding.dataLoading.visibility = View.GONE
     }
 
     private fun setUpMyTransactions(transactions: List<Transaction?>?) {
@@ -92,8 +86,6 @@ class CreditFragment : BaseFragment() {
          binding.allPayments.adapter = creditAdapter
          binding.allPayments.layoutManager = linearLayoutManager
          binding.allPayments.visibility = View.VISIBLE
-         binding.allPayments.visibility = View.VISIBLE
-         binding.statsHolder.visibility = View.VISIBLE
          binding.statsHolder.visibility = View.VISIBLE
          binding.itemCard.visibility = View.VISIBLE
          binding.dataLoading.visibility = View.GONE

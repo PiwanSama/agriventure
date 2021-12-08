@@ -77,7 +77,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/stats_holder"
-                app:cardCornerRadius="30dp"
                 app:contentPadding="0dp"
                 android:visibility="gone">
 

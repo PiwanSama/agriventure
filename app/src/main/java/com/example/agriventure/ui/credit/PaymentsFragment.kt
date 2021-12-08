@@ -1,5 +1,6 @@
 package com.example.agriventure.ui.credit
 
+import android.content.Context
 import com.example.agriventure.ui.BaseFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -31,6 +32,7 @@ import java.util.ArrayList
 class PaymentsFragment : BaseFragment() {
     private var allTransactionList: MutableList<Transaction?>? = null
     private lateinit var binding : FragmentPaymentsBinding
+    private lateinit var businessName:String
     private val databaseRef by lazy{
         Firebase.database.reference.child("payments")
     }
@@ -46,6 +48,8 @@ class PaymentsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        businessName =
+            activity.getPreferences(Context.MODE_PRIVATE).getString(Constants.buyerBusinessName, "").toString()
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 allTransactionList!!.clear()
@@ -53,7 +57,7 @@ class PaymentsFragment : BaseFragment() {
                     val transaction = dataSnapshot.getValue(
                         Transaction::class.java
                     )
-                    if (transaction!!.getSender_name() == Constants.buyerBusinessName) {
+                    if (transaction!!.getSender_name() == businessName) {
                         allTransactionList!!.add(transaction)
                     }
                 }
